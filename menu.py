@@ -11,8 +11,18 @@ class Menu:
       print self.title
       print '=' * len(self.title)
     if self.options:
-      for key,value in sorted(self.options.iteritems()):
-        print "%s. %s" % (key,value)
+      def print_menu():
+        for key,value in sorted(self.options.iteritems()):
+          print "%s. %s" % (key,value)
+      while True:
+        print_menu()
+        selected = raw_input("> ")
+        if selected in self.options:
+          return selected
+        elif selected == "?":
+          pass
+        else:
+          print "Invalid Option\n"
   
 class MainMenu(Menu):
   def __init__(self):
