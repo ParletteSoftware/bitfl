@@ -11,7 +11,7 @@ class Menu:
       print self.title
       print '=' * len(self.title)
     if self.options:
-      for key,value in self.options.iteritems():
+      for key,value in sorted(self.options.iteritems()):
         print "%s. %s" % (key,value)
   
 class MainMenu(Menu):
