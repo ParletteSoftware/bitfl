@@ -5,6 +5,9 @@ main_menu = MainMenu()
 
 while not done:
   print "Welcome to Billy in the Fat Lane"
-  main_menu.display()
-  done = True
+  selection = main_menu.display().lower()
+  if selection == 'q':
+    done = True
+  if selection == 'n':
+    print "New game started"
   
