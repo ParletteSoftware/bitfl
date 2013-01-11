@@ -29,3 +29,7 @@ class MainMenu(Menu):
     self.title = "Main Menu"
     self.options = {'n':'New Game','q':'Quit'}
   
+class NewGameMenu(Menu):
+  def __init__(self):
+    self.title = "New Game Menu"
+    self.options = {'a':'Add Player','l':'List Players','s':'Start Game','q':'Quit'}
