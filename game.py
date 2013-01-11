@@ -1,11 +1,14 @@
 from uuid import uuid4
 from menu import NewGameMenu
+from player import Player
 
 class Game:
   def __init__(self):
     self._id = uuid4()
     #Has the game been started?
     self.started = False
+    #List of player objects
+    self.players = list()
   
   @property
   def id(self):
@@ -24,8 +27,11 @@ class Game:
         self.started = True
         break
       if selection == 'a':
-        pass
+        name = raw_input("Name: ")
+        if name is not "":
+          self.players.append(Player(name))
       if selection == 'l':
-        pass
+        print "Player List:"
+        print "\n".join(str(x) for x in self.players)
     
     return self.started
