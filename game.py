@@ -5,6 +5,8 @@ from player import Player
 class Game:
   def __init__(self):
     self._id = uuid4()
+    #Valid commands this game class will accept
+    self.commands = ["move","end"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -35,3 +37,27 @@ class Game:
         print "\n".join(str(x) for x in self.players)
     
     return self.started
+  
+  def command(self,command = None,player = None):
+    """Process a command for a player.
+    
+    Return a boolean on if the command completed successfully."""
+    
+    # Parameters need to be provided
+    if command is None or player is None:
+      return False
+    
+    # Parameters need to be valid
+    if player not in self.players or  command not in self.commands:
+      return False
+    
+    if command is "move":
+      #Move Player
+      return True
+    
+    if command is "end":
+      #End Turn
+      return True
+    
+    #If we got here, then something didn't execute correctly
+    return False
