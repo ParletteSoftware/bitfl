@@ -5,3 +5,5 @@ class Map:
     #Create the grid
     self.grid = empty((x,y),dtype='object') #object may be something more specific later
   
+  def __repr__(self):
+    return str(self.grid)
