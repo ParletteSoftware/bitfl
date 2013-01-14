@@ -5,7 +5,7 @@ from map import Map
 
 class Game:
   def __init__(self):
-    self._id = uuid4()
+    self.id = uuid4()
     #Valid commands this game class will accept
     self.commands = ["move","end"]
     #Has the game been started?
@@ -14,11 +14,6 @@ class Game:
     self.players = list()
     #Game Board
     self.map = Map()
-  
-  @property
-  def id(self):
-    """The string representation of the unique ID should be sufficient for anything using the game object to determine which game this is."""
-    str(self._id)
   
   def start(self):
     menu = NewGameMenu()
