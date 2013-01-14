@@ -7,6 +7,9 @@ class Player:
     self.location = None
     self.turns = 0
   
+  def __eq__(self,other):
+    return self.id == other.id if hasattr(other,"id") else False
+  
   def move_player(self,new_location):
     """Change the player's location variable.
     The validity of this move should be done before this function is called."""
