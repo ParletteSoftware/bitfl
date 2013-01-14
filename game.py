@@ -2,6 +2,7 @@ from uuid import uuid4
 from menu import NewGameMenu
 from player import Player
 from map import Map
+from turn import Turn
 
 class Game:
   def __init__(self):
@@ -14,6 +15,8 @@ class Game:
     self.players = list()
     #Game Board
     self.map = Map()
+    #List of Turns (See Turn class)
+    self.turns = list()
   
   def start(self):
     menu = NewGameMenu()
@@ -24,6 +27,7 @@ class Game:
       if selection == 'q':
         break
       if selection == 's':
+        self.new_turn()
         self.started = True
         break
       if selection == 'a':
@@ -35,6 +39,11 @@ class Game:
         print "\n".join(str(x) for x in self.players)
     
     return self.started
+  
+  def new_turn(self):
+    """Create a new turn and add it to the end of the turns list."""
+    new_turn = Turn()
+    self.turns.append(new_turn)
   
   def command(self,command = None,player = None):
     """Process a command for a player.
