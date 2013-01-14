@@ -1,6 +1,7 @@
 from uuid import uuid4
 from menu import NewGameMenu
 from player import Player
+from map import Map
 
 class Game:
   def __init__(self):
@@ -11,6 +12,8 @@ class Game:
     self.started = False
     #List of player objects
     self.players = list()
+    #Game Board
+    self.map = Map()
   
   @property
   def id(self):
