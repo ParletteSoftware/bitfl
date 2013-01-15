@@ -41,4 +41,4 @@ class TurnMenu(Menu):
   
   def display(self,turn_number):
     self.title = "Turn Menu: Turn %s" % (turn_number)
-    super(TurnMenu,self).display()
+    return super(TurnMenu,self).display()

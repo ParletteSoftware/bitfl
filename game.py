@@ -49,9 +49,16 @@ class Game:
       selection = menu.display(len(self.turns))
       if selection == 'q':
         return True
+      if selection == 'e':
+        self.new_turn()
   
   def new_turn(self):
     """Create a new turn and add it to the end of the turns list."""
+    if len(self.turns) > 0:
+      #End the current turn
+      self.turns[-1].end()
+    
+    #Create the next turn
     new_turn = Turn()
     self.turns.append(new_turn)
   
