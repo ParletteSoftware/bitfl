@@ -12,4 +12,5 @@ while not done:
   if selection == 'n':
     print "Starting new game..."
     game = Game()
-    game.start()
+    if game.start():
+      game.run()

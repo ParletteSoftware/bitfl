@@ -1,5 +1,6 @@
 from uuid import uuid4
 from menu import NewGameMenu
+from menu import TurnMenu
 from player import Player
 from map import Map
 from turn import Turn
@@ -39,6 +40,15 @@ class Game:
         print "\n".join(str(x) for x in self.players)
     
     return self.started
+  
+  def run(self):
+    """Process user commands until they want to exit."""
+    #Loop until something breaks it, like a quit event
+    menu = TurnMenu()
+    while True:
+      selection = menu.display(len(self.turns))
+      if selection == 'q':
+        return True
   
   def new_turn(self):
     """Create a new turn and add it to the end of the turns list."""

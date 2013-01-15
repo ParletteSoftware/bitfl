@@ -1,5 +1,5 @@
 
-class Menu:
+class Menu(object):
   def __init__(self):
     self.title = None
     self.options = dict()
@@ -33,3 +33,12 @@ class NewGameMenu(Menu):
   def __init__(self):
     self.title = "New Game Menu"
     self.options = {'a':'Add Player','l':'List Players','s':'Start Game','q':'Quit'}
+
+class TurnMenu(Menu):
+  def __init__(self):
+    self.title = "Turn Menu"
+    self.options = {'m':'Move','e':'End Turn','q':'Quit'}
+  
+  def display(self,turn_number):
+    self.title = "Turn Menu: Turn %s" % (turn_number)
+    super(TurnMenu,self).display()
