@@ -55,7 +55,7 @@ class Game:
           if selection == 'e':
             turn_done = True
           if selection == 'm':
-            self.command("move",player)
+            self.command("move",{'player':player,'location':''})
       self.new_turn()
   
   def new_turn(self):
@@ -67,22 +67,28 @@ class Game:
     #Advance the turn counter
     self.turn += 1
   
-  def command(self,command,player):
+  def command(self,command,parameters = None):
     """Process a command for a player.
     
     Return a boolean on if the command completed successfully."""
     
     # Parameters need to be provided
-    if command is None or player is None:
+    if command is None:
       return False
     
     # Parameters need to be valid
-    if player not in self.players or  command not in self.commands:
+    if command not in self.commands:
       return False
     
     if command is "move":
       #Move Player
-      return True
+      #Verify Parameters
+      if parameters:
+        if set(['player','location']).issubset(parameters):
+          pass
+        else:
+          print "invalid parameters for move command"
+      return False
     
     if command is "end":
       #End Turn
