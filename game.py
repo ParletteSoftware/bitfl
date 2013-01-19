@@ -46,11 +46,13 @@ class Game:
     #Loop until something breaks it, like a quit event
     menu = TurnMenu()
     while True:
-      selection = menu.display(len(self.turns))
-      if selection == 'q':
-        return True
-      if selection == 'e':
-        self.new_turn()
+      for player in self.players:
+        selection = menu.display(len(self.turns),player.name)
+        if selection == 'q':
+          return True
+        if selection == 'e':
+          pass
+      self.new_turn()
   
   def new_turn(self):
     """Create a new turn and add it to the end of the turns list."""
@@ -62,7 +64,7 @@ class Game:
     new_turn = Turn()
     self.turns.append(new_turn)
   
-  def command(self,command = None,player = None):
+  def command(self,command,player):
     """Process a command for a player.
     
     Return a boolean on if the command completed successfully."""
