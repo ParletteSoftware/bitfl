@@ -16,8 +16,8 @@ class Game:
     self.players = list()
     #Game Board
     self.map = Map()
-    #List of Turns (See Turn class)
-    self.turns = list()
+    #Turn Counter
+    self.turn = 0
   
   def start(self):
     menu = NewGameMenu()
@@ -47,7 +47,7 @@ class Game:
     menu = TurnMenu()
     while True:
       for player in self.players:
-        selection = menu.display(len(self.turns),player.name)
+        selection = menu.display(self.turn,player.name)
         if selection == 'q':
           return True
         if selection == 'e':
@@ -56,13 +56,12 @@ class Game:
   
   def new_turn(self):
     """Create a new turn and add it to the end of the turns list."""
-    if len(self.turns) > 0:
+    if self.turn > 0:
       #End the current turn
-      self.turns[-1].end()
+      pass
     
-    #Create the next turn
-    new_turn = Turn()
-    self.turns.append(new_turn)
+    #Advance the turn counter
+    self.turn += 1
   
   def command(self,command,player):
     """Process a command for a player.
