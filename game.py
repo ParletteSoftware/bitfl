@@ -47,11 +47,15 @@ class Game:
     menu = TurnMenu()
     while True:
       for player in self.players:
-        selection = menu.display(self.turn,player.name)
-        if selection == 'q':
-          return True
-        if selection == 'e':
-          pass
+        turn_done = False
+        while not turn_done:
+          selection = menu.display(self.turn,player.name)
+          if selection == 'q':
+            return True
+          if selection == 'e':
+            turn_done = True
+          if selection == 'm':
+            self.command("move",player)
       self.new_turn()
   
   def new_turn(self):
