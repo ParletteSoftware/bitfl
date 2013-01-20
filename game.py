@@ -55,6 +55,7 @@ class Game:
           if selection == 'e':
             turn_done = True
           if selection == 'm':
+            print "Map:\n%s" % (self.map)
             self.command("move",{'player':player,'location':''})
       self.new_turn()
   
