@@ -3,7 +3,6 @@ from menu import NewGameMenu
 from menu import TurnMenu
 from player import Player
 from map import Map
-from turn import Turn
 
 class Game:
   def __init__(self):
