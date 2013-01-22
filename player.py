@@ -25,6 +25,9 @@ class Player:
     self.location = None
     self.turns = 0
   
+  def __repr__(self):
+    return str(self.name)
+  
   def __eq__(self,other):
     return self.id == other.id if hasattr(other,"id") else False
   

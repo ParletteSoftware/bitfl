@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from menu import MainMenu
+from game import Game
 
 done = False
 main_menu = MainMenu()
@@ -27,5 +28,7 @@ while not done:
   if selection == 'q':
     done = True
   if selection == 'n':
-    print "New game started"
-  
+    print "Starting new game..."
+    game = Game()
+    if game.start():
+      game.run()

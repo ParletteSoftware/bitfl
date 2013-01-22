@@ -17,11 +17,16 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from numpy import *
+from location import Location
 
 class Map:
   def __init__(self, x = 10, y = 10):
     #Create the grid
-    self.grid = empty((x,y),dtype='object') #object may be something more specific later
+    self.grid = empty((x,y),dtype='object') #This initializes all points to None
   
   def __repr__(self):
     return str(self.grid)
+  
+  def add(self,x,y,location):
+    """Add a location to a point on the map."""
+    pass
