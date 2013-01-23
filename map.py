@@ -68,7 +68,7 @@ class Map:
         return
       
       #Now setup the game board
-      self.generate_map(self.x_size,self.y_size)
+      self.generate_grid(self.x_size,self.y_size)
       
       #Add locations to the grid
       for location in map_conf["locations"]:
@@ -80,7 +80,7 @@ class Map:
     else:
       self.log_error("File (%s) could not be opened" % (conf_file))
   
-  def generate_map(self,x,y):
+  def generate_grid(self,x,y):
     """Generate a map grid with the given x and y parameters."""
     
     self.grid = empty((int(x),int(y)),dtype='object') #This initializes all points to None

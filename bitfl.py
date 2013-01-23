@@ -23,6 +23,7 @@ import os
 
 done = False
 main_menu = MainMenu()
+debug = True
 
 while not done:
   print "Welcome to Billy in the Fat Lane"
@@ -35,7 +36,7 @@ while not done:
     if os.path.exists("maps"):
       maps_dir = os.path.join(os.path.dirname(__file__),"maps")
       for map_dir in [name for name in os.listdir(maps_dir) if os.path.isdir(os.path.join(maps_dir, name))]:
-        map_list.append(Map(os.path.join(maps_dir,map_dir),debug = True))
+        map_list.append(Map(os.path.join(maps_dir,map_dir),debug = debug))
         print "loaded %s" % (map_list[-1].title)
     if len(map_list):
       print "...done"
