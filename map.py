@@ -61,13 +61,24 @@ class Map:
       #Set the map settings
       try:
         self.title = map_conf["general"]["title"]
+        self.max_x = map_conf["general"]["x"]
+        self.max_y = map_conf["general"]["y"]
       except KeyError,e:
         self.log_error("Invalid config file: %s is missing" % str(e))
+        return
+      
+      #Now setup the game board
+      self.generate_map(self.max_x,self.max_y)
       
       #Close the file
       f.close()
     else:
       self.log_error("File (%s) could not be opened" % (conf_file))
+  
+  def generate_map(self,x,y):
+    """Generate a map grid with the given x and y parameters."""
+    
+    self.grid = empty((int(x),int(y)),dtype='object') #This initializes all points to None
   
   def add(self,x,y,location):
     """Add a location to a point on the map."""
