@@ -18,6 +18,8 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from menu import MainMenu
 from game import Game
+from map import Map
+import os
 
 done = False
 main_menu = MainMenu()
@@ -28,7 +30,18 @@ while not done:
   if selection == 'q':
     done = True
   if selection == 'n':
-    print "Starting new game..."
-    game = Game()
-    if game.start():
-      game.run()
+    print "Loading maps..."
+    map_list = []
+    if os.path.exists("maps"):
+      maps_dir = os.path.join(os.path.dirname(__file__),"maps")
+      for map_dir in [name for name in os.listdir(maps_dir) if os.path.isdir(os.path.join(maps_dir, name))]:
+        map_list.append(Map(os.path.join(maps_dir,map_dir),debug = True))
+        print "loaded %s" % (map_list[-1].title)
+    if len(map_list):
+      print "...done"
+      print "Starting new game..."
+      game = Game()
+      if game.start():
+        game.run()
+    else:
+      print "...no maps found"
