@@ -70,6 +70,11 @@ class Map:
       #Now setup the game board
       self.generate_map(self.x_size,self.y_size)
       
+      #Add locations to the grid
+      for location in map_conf["locations"]:
+        self.log_debug("Processing location JSON %s" % str(location))
+        self.add_location(location["x"],location["y"],Location(name=location["title"],symbol=location["symbol"]))
+      
       #Close the file
       f.close()
     else:
@@ -80,6 +85,8 @@ class Map:
     
     self.grid = empty((int(x),int(y)),dtype='object') #This initializes all points to None
   
-  def add(self,x,y,location):
+  def add_location(self,x,y,location):
     """Add a location to a point on the map."""
-    pass
+    
+    if self.grid[x][y] is None:
+      self.grid[x][y] = location

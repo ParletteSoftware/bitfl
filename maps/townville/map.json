@@ -11,7 +11,9 @@
     {
       "symbol": "h",
       "title": "Home",
-      "start_location": true
+      "start_location": true,
+      "x": 3,
+      "y": 7
     }
   ]
 }
