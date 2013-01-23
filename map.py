@@ -60,8 +60,10 @@ class Map:
       self.log_debug("JSON: %s" % str(map_conf))
       
       #Set the map settings
-      #try:
-      self.title = map_conf["general"]["title"]
+      try:
+        self.title = map_conf["general"]["title"]
+      except KeyError,e:
+        self.log_error("Invalid config file: %s is missing" % str(e))
       
       #Close the file
       f.close()
