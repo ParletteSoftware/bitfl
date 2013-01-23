@@ -2,14 +2,14 @@
   "general":
   {
     "title": "Townville",
-    "x": 10,
-    "y": 10
+    "x_size": 10,
+    "y_size": 10
   },
   
   "locations":
   [
     {
-      "id": "h",
+      "symbol": "h",
       "title": "Home",
       "start_location": true
     }

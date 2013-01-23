@@ -61,14 +61,14 @@ class Map:
       #Set the map settings
       try:
         self.title = map_conf["general"]["title"]
-        self.max_x = map_conf["general"]["x"]
-        self.max_y = map_conf["general"]["y"]
+        self.x_size = map_conf["general"]["x_size"]
+        self.y_size = map_conf["general"]["y_size"]
       except KeyError,e:
         self.log_error("Invalid config file: %s is missing" % str(e))
         return
       
       #Now setup the game board
-      self.generate_map(self.max_x,self.max_y)
+      self.generate_map(self.x_size,self.y_size)
       
       #Close the file
       f.close()
