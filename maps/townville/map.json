@@ -1,0 +1,26 @@
+{
+  "general":
+  {
+    "title": "Townville",
+    "x_size": 10,
+    "y_size": 10
+  },
+  
+  "locations":
+  [
+    {
+      "symbol": "h",
+      "title": "Home",
+      "start_location": true,
+      "x": 3,
+      "y": 7
+    },
+    
+    {
+      "symbol": "b",
+      "title": "Bank",
+      "x": 6,
+      "y": 3
+    }
+  ]
+}
