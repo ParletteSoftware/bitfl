@@ -18,15 +18,77 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from numpy import *
 from location import Location
+from json import load
+import os
 
 class Map:
-  def __init__(self, x = 10, y = 10):
-    #Create the grid
-    self.grid = empty((x,y),dtype='object') #This initializes all points to None
+  def __init__(self, map_path = None, debug = False):
+    self.debug = debug
+    self.log_debug("map_path received as %s" % str(map_path))
+    if map_path and os.path.exists(map_path):
+      
+      #Load from map_path if it is provided
+      self.load_from_file(map_path)
+    else:
+      #File is inavlid, create a generic game board for debug
+      self.grid = empty((10,10),dtype='object') #This initializes all points to None
+      self.title = "map"
   
   def __repr__(self):
     return str(self.grid)
   
-  def add(self,x,y,location):
+  def log_debug(self,message):
+    if self.debug:
+      print "Map Class:\tDebug:\t%s" % str(message)
+  
+  def log_error(self,message):
+    print "Map Class:\tError:\t%s" % str(message)
+  
+  def load_from_file(self,map_path):
+    conf_file = os.path.join(map_path,"map.json")
+    
+    #Open the file for reading
+    f = open(conf_file,'r')
+    
+    if f:
+      self.log_debug("File (%s) Opened" % (conf_file))
+      
+      #Read in the entire file and load it as json
+      map_conf = load(f)
+      self.log_debug("Loaded JSON from file")
+      self.log_debug("JSON: %s" % str(map_conf))
+      
+      #Set the map settings
+      try:
+        self.title = map_conf["general"]["title"]
+        self.x_size = map_conf["general"]["x_size"]
+        self.y_size = map_conf["general"]["y_size"]
+      except KeyError,e:
+        self.log_error("Invalid config file: %s is missing" % str(e))
+        return
+      
+      #Now setup the game board
+      self.generate_grid(self.x_size,self.y_size)
+      
+      #Add locations to the grid
+      for location in map_conf["locations"]:
+        self.log_debug("Processing location JSON %s" % str(location))
+        self.add_location(location["x"],location["y"],Location(name=location["title"],symbol=location["symbol"]))
+      
+      #Close the file
+      f.close()
+    else:
+      self.log_error("File (%s) could not be opened" % (conf_file))
+  
+  def generate_grid(self,x,y):
+    """Generate a map grid with the given x and y parameters."""
+    
+    self.grid = empty((int(x),int(y)),dtype='object') #This initializes all points to None
+  
+  def add_location(self,x,y,location):
     """Add a location to a point on the map."""
-    pass
+    
+    if self.grid[x][y] is None:
+      self.grid[x][y] = location
+    else:
+      self.log_error("There was already something (%s) at map location (%s,%s), so I cannot add %s" % (self.grid[x][y].name,str(x),str(y),location.name))

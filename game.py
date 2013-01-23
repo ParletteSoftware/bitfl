@@ -23,7 +23,7 @@ from player import Player
 from map import Map
 
 class Game:
-  def __init__(self):
+  def __init__(self, map = None):
     self.id = uuid4()
     #Valid commands this game class will accept
     self.commands = ["move","end"]
@@ -32,7 +32,7 @@ class Game:
     #List of player objects
     self.players = list()
     #Game Board
-    self.map = Map()
+    self.map = map if map else Map()
     #Turn Counter
     self.turn = 0
   
