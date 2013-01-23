@@ -49,7 +49,6 @@ class Map:
     
     #Open the file for reading
     f = open(conf_file,'r')
-    print str(f)
     
     if f:
       self.log_debug("File (%s) Opened" % (conf_file))

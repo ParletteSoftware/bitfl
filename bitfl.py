@@ -40,7 +40,8 @@ while not done:
     if len(map_list):
       print "...done"
       print "Starting new game..."
-      game = Game()
+      if len(map_list) == 1:
+        game = Game(map_list[0])
       if game.start():
         game.run()
     else:
