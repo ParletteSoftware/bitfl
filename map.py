@@ -18,14 +18,34 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from numpy import *
 from location import Location
+import os
 
 class Map:
-  def __init__(self, x = 10, y = 10):
-    #Create the grid
-    self.grid = empty((x,y),dtype='object') #This initializes all points to None
+  def __init__(self, filename = None, debug = False):
+    self.debug = debug
+    if filename and os.path.exists(filename):
+      #Load from filename if it is provided
+      self.load_from_file(filename)
+    else:
+      #File is inavlid, create a generic game board for debug
+      self.grid = empty((10,10),dtype='object') #This initializes all points to None
   
   def __repr__(self):
     return str(self.grid)
+  
+  def log_debug(self,message):
+    if self.debug:
+      print "Map Class:\tDebug:\t%s" % str(message)
+  
+  def log_error(self,message):
+    print "Map Class:\tError:\t%s" % str(message)
+  
+  def load_from_file(self,filename):
+    f = open(filename,'r')
+    if f:
+      self.log_debug("File (%s) Opened" % (filename))
+    else:
+      self.log_error("File (%s) could not be opened" % (filename))
   
   def add(self,x,y,location):
     """Add a location to a point on the map."""
