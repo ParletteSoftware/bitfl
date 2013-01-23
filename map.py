@@ -90,3 +90,5 @@ class Map:
     
     if self.grid[x][y] is None:
       self.grid[x][y] = location
+    else:
+      self.log_error("There was already something (%s) at map location (%s,%s), so I cannot add %s" % (self.grid[x][y].name,str(x),str(y),location.name))
