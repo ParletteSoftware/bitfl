@@ -25,17 +25,28 @@ class Map:
   def __init__(self, map_path = None, debug = False):
     self.debug = debug
     self.log_debug("map_path received as %s" % str(map_path))
+    
+    #Initialize the lists
+    self.locations = []
+    
     if map_path and os.path.exists(map_path):
       
       #Load from map_path if it is provided
       self.load_from_file(map_path)
+      self.log_debug("map generated:\n%s" % str(self))
     else:
       #File is inavlid, create a generic game board for debug
       self.grid = empty((10,10),dtype='object') #This initializes all points to None
       self.title = "map"
   
   def __repr__(self):
-    return str(self.grid)
+    s = ""
+    for row in self.grid:
+      for point in row:
+        s += " %s " % str(point) if point else " - "
+      s += "\n"
+    s += "\n%s" % ("\n".join("\t%s: %s" % (x.symbol,x.name) for x in self.locations))
+    return s
   
   def log_debug(self,message):
     if self.debug:
@@ -89,6 +100,9 @@ class Map:
     """Add a location to a point on the map."""
     
     if self.grid[x][y] is None:
+      #Add the location to the point on the grid
       self.grid[x][y] = location
+      #Also keep a list of locations for easier access
+      self.locations.append(location)
     else:
       self.log_error("There was already something (%s) at map location (%s,%s), so I cannot add %s" % (self.grid[x][y].name,str(x),str(y),location.name))
