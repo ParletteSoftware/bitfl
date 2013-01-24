@@ -114,7 +114,9 @@ class Game:
       #Verify Parameters
       if parameters:
         if set(['player','location']).issubset(parameters):
-          self.log_debug("Moving %s to %s" % (parameters['player'],parameters['location']))
+          #User may have cancelled on MoveMenu, so make sure a location was passed
+          if parameters['location'] != "":
+            self.log_debug("Moving %s to %s" % (parameters['player'],parameters['location']))
         else:
           print "invalid parameters for move command"
       return False

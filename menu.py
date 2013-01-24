@@ -22,6 +22,7 @@ class Menu(object):
     self.options = dict()
     self.indent = 2
     self.getch = _Getch()
+    self.allow_cancel = False
   
   def display(self):
     """Show the menu to the user and return their selection."""
@@ -32,12 +33,16 @@ class Menu(object):
       def print_menu():
         for key,value in sorted(self.options.iteritems()):
           print "%s. %s" % (key,value)
+        if self.allow_cancel:
+          print "(Enter to cancel)"
       while True:
         print_menu()
         selected = self.getch()
         print "\n"
         if selected in self.options:
           return selected
+        elif selected == "\r" and self.allow_cancel:
+          return ''
         elif selected == "?":
           pass
         else:
@@ -70,8 +75,12 @@ class MoveMenu(Menu):
     super(MoveMenu,self).__init__()
     self.title = "Move Player"
     self.options = {}
+    #Build the options from the locations list
     for location in locations:
       self.options[location.symbol] = location.name
+    
+    #We want the user to be able to cancel
+    self.allow_cancel = True
   
   def display(self,map):
     print map
