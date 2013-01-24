@@ -29,13 +29,19 @@ class Map:
       
       #Load from map_path if it is provided
       self.load_from_file(map_path)
+      self.log_debug("map generated:\n%s" % str(self))
     else:
       #File is inavlid, create a generic game board for debug
       self.grid = empty((10,10),dtype='object') #This initializes all points to None
       self.title = "map"
   
   def __repr__(self):
-    return str(self.grid)
+    s = ""
+    for row in self.grid:
+      for point in row:
+        s += " %s " % str(point) if point else " - "
+      s += "\n"
+    return s
   
   def log_debug(self,message):
     if self.debug:
