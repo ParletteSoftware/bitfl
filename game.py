@@ -23,8 +23,9 @@ from player import Player
 from map import Map
 
 class Game:
-  def __init__(self, map = None):
+  def __init__(self, map = None, debug = False):
     self.id = uuid4()
+    self.debug = debug
     #Valid commands this game class will accept
     self.commands = ["move","end"]
     #Has the game been started?
@@ -35,6 +36,13 @@ class Game:
     self.map = map if map else Map()
     #Turn Counter
     self.turn = 0
+  
+  def log_debug(self,message):
+    if self.debug:
+      print "Game Class:\tDebug:\t%s" % str(message)
+  
+  def log_error(self,message):
+    print "Game Class:\tError:\t%s" % str(message)
   
   def start(self):
     menu = NewGameMenu()
