@@ -25,6 +25,10 @@ class Map:
   def __init__(self, map_path = None, debug = False):
     self.debug = debug
     self.log_debug("map_path received as %s" % str(map_path))
+    
+    #Initialize the lists
+    self.locations = []
+    
     if map_path and os.path.exists(map_path):
       
       #Load from map_path if it is provided
@@ -41,6 +45,7 @@ class Map:
       for point in row:
         s += " %s " % str(point) if point else " - "
       s += "\n"
+    s += "\n%s" % ("\n".join(str(point)))
     return s
   
   def log_debug(self,message):
@@ -95,6 +100,9 @@ class Map:
     """Add a location to a point on the map."""
     
     if self.grid[x][y] is None:
+      #Add the location to the point on the grid
       self.grid[x][y] = location
+      #Also keep a list of locations for easier access
+      self.locations.append(location)
     else:
       self.log_error("There was already something (%s) at map location (%s,%s), so I cannot add %s" % (self.grid[x][y].name,str(x),str(y),location.name))
