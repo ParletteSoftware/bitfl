@@ -66,8 +66,8 @@ class TurnMenu(Menu):
     self.title = "Turn Menu"
     self.options = {'m':'Move','e':'End Turn','q':'Quit'}
   
-  def display(self,turn_number,player_name):
-    self.title = "Turn Menu: %s: Turn %s" % (player_name,turn_number)
+  def display(self,turn_number,player):
+    self.title = "Turn Menu: %s: Turn %s\nLocation: %s" % (player.name,turn_number,player.location.name)
     return super(TurnMenu,self).display()
 
 class MoveMenu(Menu):
