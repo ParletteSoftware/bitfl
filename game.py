@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu
-from menu import TurnMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu
 from player import Player
 from map import Map
 
@@ -70,6 +69,7 @@ class Game:
     """Process user commands until they want to exit."""
     #Loop until something breaks it, like a quit event
     menu = TurnMenu()
+    move_menu = MoveMenu(self.map.locations)
     while True:
       for player in self.players:
         turn_done = False
@@ -81,7 +81,7 @@ class Game:
             turn_done = True
           if selection == 'm':
             print "Map:\n%s" % (self.map)
-            self.command("move",{'player':player,'location':'h'})
+            self.command("move",{'player':player,'location':move_menu.display(self.map)})
       self.new_turn()
   
   def new_turn(self):

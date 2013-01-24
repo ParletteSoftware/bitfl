@@ -65,6 +65,18 @@ class TurnMenu(Menu):
     self.title = "Turn Menu: %s: Turn %s" % (player_name,turn_number)
     return super(TurnMenu,self).display()
 
+class MoveMenu(Menu):
+  def __init__(self,locations):
+    super(MoveMenu,self).__init__()
+    self.title = "Move Player"
+    self.options = {}
+    for location in locations:
+      self.options[location.symbol] = location.name
+  
+  def display(self,map):
+    print map
+    return super(MoveMenu,self).display()
+
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the screen."""
