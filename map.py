@@ -45,7 +45,7 @@ class Map:
       for point in row:
         s += " %s " % str(point) if point else " - "
       s += "\n"
-    s += "\n%s" % ("\n".join(str(point)))
+    s += "\n%s" % ("\n".join("\t%s: %s" % (x.symbol,x.name) for x in self.locations))
     return s
   
   def log_debug(self,message):
