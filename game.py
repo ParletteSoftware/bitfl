@@ -81,7 +81,7 @@ class Game:
             turn_done = True
           if selection == 'm':
             print "Map:\n%s" % (self.map)
-            self.command("move",{'player':player,'location':''})
+            self.command("move",{'player':player,'location':'h'})
       self.new_turn()
   
   def new_turn(self):
@@ -98,6 +98,9 @@ class Game:
     
     Return a boolean on if the command completed successfully."""
     
+    self.log_debug("command(): command is %s" % str(command))
+    self.log_debug("command(): parameters: %s" % str(parameters))
+    
     # Parameters need to be provided
     if command is None:
       return False
@@ -111,7 +114,7 @@ class Game:
       #Verify Parameters
       if parameters:
         if set(['player','location']).issubset(parameters):
-          pass
+          self.log_debug("Moving %s to %s" % (parameters['player'],parameters['location']))
         else:
           print "invalid parameters for move command"
       return False
