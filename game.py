@@ -20,6 +20,7 @@ from uuid import uuid4
 from menu import NewGameMenu,TurnMenu, MoveMenu
 from player import Player
 from map import Map
+import os
 
 class Game:
   def __init__(self, map = None, debug = False):
@@ -56,6 +57,9 @@ class Game:
     #Display the menu until the user quits or starts the game
     while True:
       selection = menu.display().lower()
+      """Clear the screen, use cls if Windows or clear if Linux"""
+      if not self.debug:
+        os.system('cls' if os.name=='nt' else 'clear')
       if selection == 'q':
         break
       if selection == 's':
@@ -86,6 +90,9 @@ class Game:
         turn_done = False
         while not turn_done:
           selection = menu.display(self.turn,player)
+          """Clear the screen, use cls if Windows or clear if Linux"""
+          if not self.debug:
+            os.system('cls' if os.name=='nt' else 'clear')
           if selection == 'q':
             return True
           if selection == 'e':
