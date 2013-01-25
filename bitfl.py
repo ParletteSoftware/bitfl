@@ -30,8 +30,12 @@ done = False
 main_menu = MainMenu()
 
 while not done:
+  """Clear the screen, use cls if Windows or clear if Linux"""
+  os.system('cls' if os.name=='nt' else 'clear')
   print "Welcome to Billy in the Fat Lane"
   selection = main_menu.display().lower()
+  """Clear the screen, use cls if Windows or clear if Linux"""
+  os.system('cls' if os.name=='nt' else 'clear')
   if selection == 'q':
     done = True
   if selection == 'n':
