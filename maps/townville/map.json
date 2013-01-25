@@ -21,6 +21,62 @@
       "title": "Bank",
       "x": 6,
       "y": 3
+    },
+    
+    {
+      "symbol": "l",
+      "title": "Library",
+      "x": 5,
+      "y": 1
+    },
+    
+    {
+      "symbol": "m",
+      "title": "Market",
+      "x": 2,
+      "y": 6
+    },
+    
+    {
+      "symbol": "u",
+      "title": "University",
+      "x": 8,
+      "y": 6
+    },
+    
+    {
+      "symbol": "f",
+      "title": "Fast Food Restaurant",
+      "x": 8,
+      "y": 8
+    },
+    
+    {
+      "symbol": "c",
+      "title": "Clothing Store",
+      "x": 6,
+      "y": 9
+    },
+    
+    {
+      "symbol": "e",
+      "title": "Electronics Store",
+      "x": 2,
+      "y": 5
+    },
+    
+    {
+      "symbol": "k",
+      "title": "Krab Shack",
+      "x": 2,
+      "y": 4
+    },
+    
+    {
+      "symbol": "u",
+      "title": "Furniture Store",
+      "x": 2,
+      "y": 3
     }
   ]
 }
