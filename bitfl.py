@@ -20,10 +20,15 @@ from menu import MainMenu
 from game import Game
 from map import Map
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='Process command line options.')
+parser.add_argument('--debug', action='store_true', help='Turn on debug logging')
+args = parser.parse_args()
 
 done = False
 main_menu = MainMenu()
-debug = True
+debug = args.debug
 
 while not done:
   print "Welcome to Billy in the Fat Lane"
@@ -42,7 +47,7 @@ while not done:
       print "...done"
       print "Starting new game..."
       if len(map_list) == 1:
-        game = Game(map_list[0], debug=True)
+        game = Game(map_list[0], debug=debug)
       if game.start():
         game.run()
     else:
