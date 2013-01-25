@@ -20,10 +20,14 @@ from menu import MainMenu
 from game import Game
 from map import Map
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='Process command line options.')
+parser.add_argument('--debug', action='store_true', help='Turn on debug logging')
+args = parser.parse_args()
 
 done = False
 main_menu = MainMenu()
-debug = True
 
 while not done:
   print "Welcome to Billy in the Fat Lane"
@@ -36,13 +40,13 @@ while not done:
     if os.path.exists("maps"):
       maps_dir = os.path.join(os.path.dirname(__file__),"maps")
       for map_dir in [name for name in os.listdir(maps_dir) if os.path.isdir(os.path.join(maps_dir, name))]:
-        map_list.append(Map(os.path.join(maps_dir,map_dir),debug = debug))
+        map_list.append(Map(os.path.join(maps_dir,map_dir),debug=args.debug))
         print "loaded %s" % (map_list[-1].title)
     if len(map_list):
       print "...done"
       print "Starting new game..."
       if len(map_list) == 1:
-        game = Game(map_list[0], debug=True)
+        game = Game(map_list[0], debug=args.debug)
       if game.start():
         game.run()
     else:
