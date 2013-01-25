@@ -58,7 +58,8 @@ class Game:
     while True:
       selection = menu.display().lower()
       """Clear the screen, use cls if Windows or clear if Linux"""
-      os.system('cls' if os.name=='nt' else 'clear')
+      if not self.debug:
+        os.system('cls' if os.name=='nt' else 'clear')
       if selection == 'q':
         break
       if selection == 's':
@@ -90,7 +91,8 @@ class Game:
         while not turn_done:
           selection = menu.display(self.turn,player)
           """Clear the screen, use cls if Windows or clear if Linux"""
-          os.system('cls' if os.name=='nt' else 'clear')
+          if not self.debug:
+            os.system('cls' if os.name=='nt' else 'clear')
           if selection == 'q':
             return True
           if selection == 'e':
