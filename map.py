@@ -99,7 +99,15 @@ class Map:
   def add_location(self,x,y,location):
     """Add a location to a point on the map."""
     
-    if self.grid[x][y] is None:
+    #Check to make sure we aren't reusing symbols
+    symbolExists = False
+    for loc in self.locations:
+      if loc.symbol == location.symbol:
+        symbolExists = True
+    
+    if symbolExists:
+      self.log_error("The symbol (%s) is already used, so I cannot add %s" % (location.symbol,location.name))
+    elif self.grid[x][y] is None:
       #Add the location to the point on the grid
       self.grid[x][y] = location
       #Also keep a list of locations for easier access
