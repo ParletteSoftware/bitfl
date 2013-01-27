@@ -38,3 +38,9 @@ class Location:
       self.jobs.append(new_job)
       return True
     return False
+  
+  def get_job_by_symbol(self,symbol):
+    for job in self.jobs:
+      if symbol == job.symbol:
+        return job
+    return None

@@ -48,6 +48,14 @@ class Menu(object):
         else:
           print "Invalid Option\n"
   
+  def add_option(self,key,value):
+    """Add an option to the menu.
+    
+    The key is a character the player can use to select this option. The value is a friendly name for this option."""
+    
+    if key not in self.options:
+      self.options[key] = value
+  
 class MainMenu(Menu):
   def __init__(self):
     Menu.__init__(self)
@@ -85,6 +93,29 @@ class MoveMenu(Menu):
   def display(self,map):
     print map
     return super(MoveMenu,self).display()
+
+class JobMenu(Menu):
+  def __init__(self):
+    super(JobMenu,self).__init__()
+    self.title = "Job Menu"
+    self.options = {}
+  
+  def display(self,job = None,job_list = None):
+    if job and job_list:
+      print "Error in JobMenu.display(): job and job_list cannot both be provided"
+      return None
+    
+    if job:
+      self.title = "Job Menu: %s" % job.name
+      self.options = {'w':'Work','q':'Quit'}
+    
+    if job_list:
+      self.title = "Apply for job"
+      for j in sorted(job_list):
+        self.options[j.symbol] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
+      self.allow_cancel = True
+    
+    return super(JobMenu,self).display()
 
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
