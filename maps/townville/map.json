@@ -20,21 +20,21 @@
       "symbol": "b",
       "title": "Bank",
       "x": 6,
-      "y": 3
+      "y": 3,
       "jobs":
       [
         {
-          "symbol": "t"
-          "title": "Teller"
-          "availability": 80
-          "pay": 5
+          "symbol": "t",
+          "title": "Teller",
+          "availability": 80,
+          "pay": 5,
           "rank": 1
         },
         {
-          "symbol": "m"
-          "title": "Manager"
-          "availability": 40
-          "pay": 10
+          "symbol": "m",
+          "title": "Manager",
+          "availability": 40,
+          "pay": 10,
           "rank": 2
         }
       ]
@@ -95,5 +95,5 @@
       "x": 2,
       "y": 3
     }
-  ],
+  ]
 }
