@@ -63,9 +63,12 @@ class Game:
       if selection == 'q':
         break
       if selection == 's':
-        self.new_turn()
-        self.started = True
-        break
+        if not self.players:
+          print "No players added, please add a player before starting the game."
+        else:
+          self.new_turn()
+          self.started = True
+          break
       if selection == 'a':
         name = raw_input("Name: ")
         if name is not "":
