@@ -23,6 +23,7 @@ class Player:
     self.name = name
     self.id = uuid4()
     self.location = None
+    self.job = None
     self.turns = 0
   
   def __repr__(self):
