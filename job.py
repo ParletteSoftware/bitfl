@@ -18,13 +18,23 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
 
-class Player:
-  def __init__(self,name = "Player"):
+class Job:
+  def __init__(self,name = "Unnamed Job",
+               symbol = "!",
+               availability = 50,
+               pay = 1,
+               rank = 0):
     self.name = name
     self.id = uuid4()
-    self.location = None
-    self.job = None
-    self.turns = 0
+    #Symbol: the command for a user to reference this job
+    self.symbol = symbol
+    #Availability: The percentage of openings for this job
+    #(100 is always available, 0 is never available)
+    self.availability = availability
+    #Pay: Pay per unit of time
+    self.pay = pay
+    #Rank: Where this job stands with regard to other jobs at its location
+    self.rank = rank
   
   def __repr__(self):
     return str(self.name)
@@ -32,8 +42,9 @@ class Player:
   def __eq__(self,other):
     return self.id == other.id if hasattr(other,"id") else False
   
-  def move(self,new_location):
-    """Change the player's location variable.
-    The validity of this move should be done before this function is called."""
-    self.location = new_location
-    return True
+  def __gt__(self,other):
+    return self.rank > other.rank if hasattr(other,"rank") else False
+  
+  def __lt__(self,other):
+    return self.rank < other.rank if hasattr(other,"rank") else False
+  

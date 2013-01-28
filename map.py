@@ -18,6 +18,7 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from numpy import *
 from location import Location
+from job import Job
 from json import load
 import os
 
@@ -82,9 +83,23 @@ class Map:
       self.generate_grid(self.x_size,self.y_size)
       
       #Add locations to the grid
-      for location in map_conf["locations"]:
-        self.log_debug("Processing location JSON %s" % str(location))
-        self.add_location(location["x"],location["y"],Location(name=location["title"],symbol=location["symbol"]))
+      for location_json in map_conf["locations"]:
+        self.log_debug("Processing location JSON %s" % str(location_json))
+        location = Location(name=location_json["title"],symbol=location_json["symbol"])
+        
+        #Parse the jobs for this location
+        if "jobs" in location_json:
+          for job_json in location_json["jobs"]:
+            self.log_debug("Processing job JSON %s" % str(job_json))
+            job = Job(name=job_json["title"],
+                      symbol=job_json["symbol"] if "symbol" in job_json else "",
+                      availability=job_json["availability"],
+                      pay=job_json["pay"],
+                      rank=job_json["rank"])
+            location.add_job(job)
+        
+        #Finally add this location to the map
+        self.add_location(location_json["x"],location_json["y"],location)
       
       #Close the file
       f.close()

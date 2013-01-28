@@ -30,3 +30,23 @@ class Location:
   
   def __repr__(self):
     return str(self.symbol)
+  
+  def add_job(self,new_job):
+    """Add the Job object to the list of jobs if it doesn't already exist.'"""
+    
+    if new_job not in self.jobs:
+      self.jobs.append(new_job)
+      return True
+    return False
+  
+  def get_job_by_symbol(self,symbol):
+    for job in self.jobs:
+      if symbol == job.symbol:
+        return job
+    return None
+  
+  def get_job_by_rank(self,rank):
+    for job in self.jobs:
+      if int(rank) == job.rank:
+        return job
+    return None

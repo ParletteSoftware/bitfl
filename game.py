@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu,TurnMenu, MoveMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu
 from player import Player
 from map import Map
 import os
@@ -27,7 +27,7 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end"]
+    self.commands = ["move","end","job_apply"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -86,12 +86,15 @@ class Game:
   def run(self):
     """Process user commands until they want to exit."""
     #Loop until something breaks it, like a quit event
-    menu = TurnMenu()
     move_menu = MoveMenu(self.map.locations)
     while True:
       for player in self.players:
         turn_done = False
         while not turn_done:
+          menu = TurnMenu()
+          menu.add_option('a','Apply for a job')
+          if player.job in player.location.jobs:
+            menu.add_option('w','Work')
           selection = menu.display(self.turn,player)
           """Clear the screen, use cls if Windows or clear if Linux"""
           if not self.debug:
@@ -102,6 +105,10 @@ class Game:
             turn_done = True
           if selection == 'm':
             self.command("move",{'player':player,'location_symbol':move_menu.display(self.map)})
+          if selection == 'a':
+            self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
+          if selection == 'w':
+            pass
       self.new_turn()
   
   def new_turn(self):
@@ -142,6 +149,23 @@ class Game:
         else:
           self.log_error("Invalid parameters for move command")
       return False
+    
+    if command is "job_apply":
+      #Apply for a job
+      #Verify Parameters
+      if parameters:
+        if set(['player','job_rank']).issubset(parameters):
+          if parameters['job_rank'] != '':
+            player = parameters['player']
+            self.log_debug("Looking up job (rank %s) in %s" % (parameters['job_rank'],player.location.name))
+            job = player.location.get_job_by_rank(parameters['job_rank'])
+            if job:
+              self.log_debug("Player %s applying for %s at %s" % (player,job.name,player.location.name))
+              player.job = job
+            else:
+              self.log_error("Job (rank %s) not found in %s" % (parameters['job_rank'],player.location.name))
+        else:
+          self.log_error("Inavlid parameters for apply command")
     
     if command is "end":
       #End Turn

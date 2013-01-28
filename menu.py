@@ -24,15 +24,20 @@ class Menu(object):
     self.getch = _Getch()
     self.allow_cancel = False
   
-  def display(self):
+  def display(self,sort = True):
     """Show the menu to the user and return their selection."""
     if self.title:
       print self.title
       print '=' * len(self.title)
     if self.options:
       def print_menu():
-        for key,value in sorted(self.options.iteritems()):
-          print "%s. %s" % (key,value)
+        #Print the list, either sorted or just as is
+        if sort:
+          for key,value in sorted(self.options.iteritems()):
+            print "%s. %s" % (key,value)
+        else:
+          for key,value in self.options.iteritems():
+            print "%s. %s" % (key,value)
         if self.allow_cancel:
           print "(Enter to cancel)"
       while True:
@@ -47,6 +52,14 @@ class Menu(object):
           pass
         else:
           print "Invalid Option\n"
+  
+  def add_option(self,key,value):
+    """Add an option to the menu.
+    
+    The key is a character the player can use to select this option. The value is a friendly name for this option."""
+    
+    if key not in self.options:
+      self.options[key] = value
   
 class MainMenu(Menu):
   def __init__(self):
@@ -85,6 +98,29 @@ class MoveMenu(Menu):
   def display(self,map):
     print map
     return super(MoveMenu,self).display()
+
+class JobMenu(Menu):
+  def __init__(self):
+    super(JobMenu,self).__init__()
+    self.title = "Job Menu"
+    self.options = {}
+  
+  def display(self,job = None,job_list = None):
+    if job and job_list:
+      print "Error in JobMenu.display(): job and job_list cannot both be provided"
+      return None
+    
+    if job:
+      self.title = "Job Menu: %s" % job.name
+      self.options = {'w':'Work','q':'Quit'}
+    
+    if job_list:
+      self.title = "Apply for job"
+      for j in job_list:
+        self.options[str(j.rank)] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
+      self.allow_cancel = True
+    
+    return super(JobMenu,self).display(sort=True)
 
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
