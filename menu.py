@@ -116,11 +116,11 @@ class JobMenu(Menu):
     
     if job_list:
       self.title = "Apply for job"
-      for j in sorted(job_list,key = lambda job: job.rank):
-        self.options[j.symbol] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
+      for j in job_list:
+        self.options[j.rank] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
       self.allow_cancel = True
     
-    return super(JobMenu,self).display(sort=False)
+    return super(JobMenu,self).display(sort=True)
 
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
