@@ -91,8 +91,10 @@ class Map:
         if "jobs" in location_json:
           for job_json in location_json["jobs"]:
             self.log_debug("Processing job JSON %s" % str(job_json))
-            job = Job(name=job_json["title"],symbol=job_json["symbol"],
-                      availability=job_json["availability"],pay=job_json["pay"],
+            job = Job(name=job_json["title"],
+                      symbol=job_json["symbol"] if "symbol" in job_json else "",
+                      availability=job_json["availability"],
+                      pay=job_json["pay"],
                       rank=job_json["rank"])
             location.add_job(job)
         

@@ -44,7 +44,22 @@
       "symbol": "l",
       "title": "Library",
       "x": 5,
-      "y": 1
+      "y": 1,
+      "jobs":
+      [
+        {
+          "title": "Book Stocker",
+          "availability": 100,
+          "pay": 2,
+          "rank": 1
+        },
+        {
+          "title": "Clerk",
+          "availability": 70,
+          "pay": 4,
+          "rank": 2
+        }
+      ]
     },
     
     {
