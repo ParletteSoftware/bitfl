@@ -103,7 +103,7 @@ class Game:
           if selection == 'm':
             self.command("move",{'player':player,'location_symbol':move_menu.display(self.map)})
           if selection == 'a':
-            self.command('job_apply',{'player':player, 'job_symbol':JobMenu().display(job_list=player.location.jobs)})
+            self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
           if selection == 'w':
             pass
       self.new_turn()
@@ -151,13 +151,16 @@ class Game:
       #Apply for a job
       #Verify Parameters
       if parameters:
-        if set(['player','job_symbol']).issubset(parameters):
-          if parameters['job_symbol'] != '':
+        if set(['player','job_rank']).issubset(parameters):
+          if parameters['job_rank'] != '':
             player = parameters['player']
-            self.log_debug("Looking up job (symbol %s) in %s" % (parameters['job_symbol'],player.location.name))
-            job = player.location.get_job_by_symbol(parameters['job_symbol'])
-            self.log_debug("Player %s applying for %s at %s" % (player,job.name,player.location.name))
-            player.job = job
+            self.log_debug("Looking up job (rank %s) in %s" % (parameters['job_rank'],player.location.name))
+            job = player.location.get_job_by_rank(parameters['job_rank'])
+            if job:
+              self.log_debug("Player %s applying for %s at %s" % (player,job.name,player.location.name))
+              player.job = job
+            else:
+              self.log_error("Job (rank %s) not found in %s" % (parameters['job_rank'],player.location.name))
         else:
           self.log_error("Inavlid parameters for apply command")
     

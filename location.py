@@ -44,3 +44,9 @@ class Location:
       if symbol == job.symbol:
         return job
     return None
+  
+  def get_job_by_rank(self,rank):
+    for job in self.jobs:
+      if int(rank) == job.rank:
+        return job
+    return None

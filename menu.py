@@ -44,6 +44,8 @@ class Menu(object):
         print_menu()
         selected = self.getch()
         print "\n"
+        print "selected: %s" % selected
+        print "options: %s" % str(self.options)
         if selected in self.options:
           return selected
         elif selected == "\r" and self.allow_cancel:
@@ -117,7 +119,7 @@ class JobMenu(Menu):
     if job_list:
       self.title = "Apply for job"
       for j in job_list:
-        self.options[j.rank] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
+        self.options[str(j.rank)] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
       self.allow_cancel = True
     
     return super(JobMenu,self).display(sort=True)
