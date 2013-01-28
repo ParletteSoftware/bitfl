@@ -44,8 +44,6 @@ class Menu(object):
         print_menu()
         selected = self.getch()
         print "\n"
-        print "selected: %s" % selected
-        print "options: %s" % str(self.options)
         if selected in self.options:
           return selected
         elif selected == "\r" and self.allow_cancel:
