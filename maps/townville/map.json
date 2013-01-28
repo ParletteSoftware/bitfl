@@ -66,49 +66,160 @@
       "symbol": "m",
       "title": "Market",
       "x": 2,
-      "y": 6
+      "y": 6,
+      "jobs":
+      [
+        {
+          "title": "Cashier",
+          "availability": 80,
+          "pay": 4,
+          "rank": 1
+        },
+        {
+          "title": "Manager",
+          "availability": 40,
+          "pay": 8,
+          "rank": 2
+        }
+      ]
     },
     
     {
       "symbol": "u",
       "title": "University",
       "x": 8,
-      "y": 6
+      "y": 6,
+      "jobs":
+      [
+        {
+          "title": "Janitor",
+          "availability": 80,
+          "pay": 2,
+          "rank": 1
+        },
+        {
+          "title": "Teaching Assistant",
+          "availability": 60,
+          "pay": 5,
+          "rank": 2
+        },
+        {
+          "title": "Professor",
+          "availability": 40,
+          "pay": 11,
+          "rank": 3
+        }
+      ]
     },
     
     {
       "symbol": "f",
       "title": "Fast Food Restaurant",
       "x": 8,
-      "y": 8
+      "y": 8,
+      "jobs":
+      [
+        {
+          "title": "Food Creation Specialist",
+          "availability": 80,
+          "pay": 3,
+          "rank": 1
+        },
+        {
+          "title": "Manager",
+          "availability": 40,
+          "pay": 8,
+          "rank": 2
+        }
+      ]
     },
     
     {
       "symbol": "c",
       "title": "Clothing Store",
       "x": 6,
-      "y": 9
+      "y": 9,
+      "jobs":
+      [
+        {
+          "title": "Cashier",
+          "availability": 80,
+          "pay": 5,
+          "rank": 1
+        },
+        {
+          "title": "Manager",
+          "availability": 40,
+          "pay": 9,
+          "rank": 2
+        }
+      ]
     },
     
     {
       "symbol": "e",
       "title": "Electronics Store",
       "x": 2,
-      "y": 5
+      "y": 5,
+      "jobs":
+      [
+        {
+          "title": "Cashier",
+          "availability": 80,
+          "pay": 4,
+          "rank": 1
+        },
+        {
+          "title": "Manager",
+          "availability": 40,
+          "pay": 8,
+          "rank": 2
+        }
+      ]
     },
     
     {
       "symbol": "k",
       "title": "Krab Shack",
       "x": 2,
-      "y": 4
+      "y": 4,
+      "jobs":
+      [
+        {
+          "title": "Cook",
+          "availability": 80,
+          "pay": 4,
+          "rank": 1
+        },
+        {
+          "title": "Waiter",
+          "availability": 40,
+          "pay": 8,
+          "rank": 2
+        }
+      ]
     },
     
     {
       "symbol": "u",
       "title": "Furniture Store",
       "x": 2,
-      "y": 3
+      "y": 3,
+      "jobs":
+      [
+        {
+          "title": "Salesman",
+          "availability": 80,
+          "pay": 4,
+          "rank": 1
+        },
+        {
+          "title": "Manager",
+          "availability": 40,
+          "pay": 8,
+          "rank": 2
+        }
+      ]
     }
   ]
 }
