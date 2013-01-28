@@ -24,15 +24,20 @@ class Menu(object):
     self.getch = _Getch()
     self.allow_cancel = False
   
-  def display(self):
+  def display(self,sort = True):
     """Show the menu to the user and return their selection."""
     if self.title:
       print self.title
       print '=' * len(self.title)
     if self.options:
       def print_menu():
-        for key,value in sorted(self.options.iteritems()):
-          print "%s. %s" % (key,value)
+        #Print the list, either sorted or just as is
+        if sort:
+          for key,value in sorted(self.options.iteritems()):
+            print "%s. %s" % (key,value)
+        else:
+          for key,value in self.options.iteritems():
+            print "%s. %s" % (key,value)
         if self.allow_cancel:
           print "(Enter to cancel)"
       while True:
@@ -111,11 +116,11 @@ class JobMenu(Menu):
     
     if job_list:
       self.title = "Apply for job"
-      for j in sorted(job_list):
+      for j in sorted(job_list,key = lambda job: job.rank):
         self.options[j.symbol] = "%s ($%s pay per unit)" % (j.name,str(j.pay))
       self.allow_cancel = True
     
-    return super(JobMenu,self).display()
+    return super(JobMenu,self).display(sort=False)
 
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
