@@ -131,7 +131,7 @@ class CourseMenu(Menu):
   def display(self,course_list = None):
     self.title = "Apply for job"
     for c in course_list:
-      self.options[str(j.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
+      self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
     self.allow_cancel = True
     
     return super(ClassMenu,self).display(sort=True)
