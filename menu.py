@@ -134,7 +134,7 @@ class CourseMenu(Menu):
       self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
     self.allow_cancel = True
     
-    return super(ClassMenu,self).display(sort=True)
+    return super(CourseMenu,self).display(sort=True)
 
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
