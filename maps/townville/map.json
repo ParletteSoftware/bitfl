@@ -142,7 +142,7 @@
           "knowledge_value": 2,
           "time": 2,
           "knowledge_required": 2,
-          "class_required": "Basic math",
+          "course_required": "Basic math",
           "cost": 20
         }
       ]

@@ -106,7 +106,7 @@ class Map:
                             knowledge_value=class_json["knowledge_value"],
                             time=class_json["time"],
                             knowledge_required=class_json["knowledge_required"],
-                            class_required=class_json["class_required"] if "class_required" in class_json else None,
+                            course_required=class_json["course_required"] if "course_required" in class_json else None,
                             cost=class_json["cost"])
             location.add_course(course)
         

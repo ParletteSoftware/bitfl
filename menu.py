@@ -135,8 +135,8 @@ class CourseMenu(Menu):
       player_can_take_course = True
       if player.knowledge < c.knowledge_required:
         player_can_take_course = False
-      if c.class_required:
-        if c.class_required not in player.completed_education:
+      if c.course_required:
+        if c.course_required not in player.completed_education:
           player_can_take_course = False
       if c.name in player.completed_education:
         player_can_take_course = False

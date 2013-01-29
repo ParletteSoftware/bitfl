@@ -24,7 +24,7 @@ class Course:
                knowledge_value = 50,
                time = 50,
                knowledge_required = 0,
-               class_required = None,
+               course_required = None,
                cost = 98765):
     self.name = name
     self.id = uuid4()
@@ -36,8 +36,8 @@ class Course:
     self.time = time
     #Knowledge Required: Base amount of knowledge required to take this course
     self.knowledge_required = knowledge_required
-    #Class Required: An optional prerequisite course
-    self.class_required = class_required
+    #Course Required: An optional prerequisite course
+    self.course_required = course_required
     #Cost: Amount of money it takes to enroll in this course
     self.cost = cost
   
