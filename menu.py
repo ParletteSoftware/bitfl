@@ -52,6 +52,8 @@ class Menu(object):
           pass
         else:
           print "Invalid Option\n"
+    else:
+      print "No options available!\n"
   
   def add_option(self,key,value):
     """Add an option to the menu.

@@ -181,7 +181,7 @@ class Game:
       #Take a class
       if parameters:
         if set(['player','course_choice']).issubset(parameters):
-          if parameters['course_choice'] != '':
+          if parameters['course_choice'] != '' and parameters['course_choice'] != None:
             player = parameters['player']
             self.log_debug("Looking up course %s in %s" % (parameters['course_choice'],player.location.name))
             course = player.location.get_course_by_number(parameters['course_choice'])
