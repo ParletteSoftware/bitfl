@@ -128,7 +128,7 @@ class CourseMenu(Menu):
     self.title = "Education Menu"
     self.options = {}
   
-  def display(self,course_list = None, player):
+  def display(self,course_list, player):
     self.title = "Enroll in a course"
     for c in course_list:
       #Check if the player has the knowledge required, class required, or has already taken the course
