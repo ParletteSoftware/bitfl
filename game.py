@@ -27,7 +27,7 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end","job_apply"]
+    self.commands = ["move","end","job_apply", "take_class"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -95,6 +95,8 @@ class Game:
           menu.add_option('a','Apply for a job')
           if player.job in player.location.jobs:
             menu.add_option('w','Work')
+          if player.location.courses:
+            menu.add_option('c','Take a course')
           selection = menu.display(self.turn,player)
           """Clear the screen, use cls if Windows or clear if Linux"""
           if not self.debug:
@@ -109,6 +111,8 @@ class Game:
             self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
           if selection == 'w':
             pass
+          if selection == 'c':
+            self.command('take_course',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses)})
       self.new_turn()
   
   def new_turn(self):
@@ -170,6 +174,24 @@ class Game:
     if command is "end":
       #End Turn
       return True
+    
+    if command is "take_course":
+      #Take a class
+      if parameters:
+        if set(['player','course_choice']).issubset(parameters):
+          if parameters['course_choice'] != '':
+            player = parameters['player']
+            self.log_debug("Looking up course %s in %s" % (parameters['course_choice'],player.location.name))
+            course = player.location.get_course_by_number(parameters['course_choice'])
+            if course:
+              self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
+              player.knowledge += course.knowledge_value
+              player.completed_education.append(course.name)
+              #TODO will need to subtract the time the course takes as well
+            else:
+              self.log_error("Course %s not found in %s" % (parameters['course_choice'],player.location.name))
+      else:
+        self.log_error("Inavlid parameters for take_class command")
     
     #If we got here, then something didn't execute correctly
     return False
