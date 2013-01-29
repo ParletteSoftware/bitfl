@@ -26,6 +26,7 @@ class Player:
     self.job = None
     self.turns = 0
     self.knowledge = 0
+    self.completed_education = []
   
   def __repr__(self):
     return str(self.name)
