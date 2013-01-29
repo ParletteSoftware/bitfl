@@ -112,7 +112,7 @@ class Game:
           if selection == 'w':
             pass
           if selection == 'c':
-            self.command('take_course',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses)})
+            self.command('take_course',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
       self.new_turn()
   
   def new_turn(self):

@@ -128,10 +128,21 @@ class CourseMenu(Menu):
     self.title = "Education Menu"
     self.options = {}
   
-  def display(self,course_list = None):
+  def display(self,course_list = None, player):
     self.title = "Enroll in a course"
     for c in course_list:
-      self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
+      #Check if the player has the knowledge required, class required, or has already taken the course
+      player_can_take_course = True
+      if player.knowledge < c.knowledge_required:
+        player_can_take_course = False
+      if c.class_required:
+        if c.class_required not in player.completed_education:
+          player_can_take_course = False
+      if c.name in player.completed_education:
+        player_can_take_course = False
+      #Add course as an option if player is qualified and hasn't already taken it
+      if player_can_take_course:
+        self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
     self.allow_cancel = True
     
     return super(CourseMenu,self).display(sort=True)
