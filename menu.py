@@ -122,15 +122,15 @@ class JobMenu(Menu):
     
     return super(JobMenu,self).display(sort=True)
 
-class ClassMenu(Menu):
+class CourseMenu(Menu):
   def __init__(self):
-    super(JobMenu,self).__init__()
+    super(CourseMenu,self).__init__()
     self.title = "Education Menu"
     self.options = {}
   
-  def display(self,class_list = None):
+  def display(self,course_list = None):
     self.title = "Apply for job"
-    for c in class_list:
+    for c in course_list:
       self.options[str(j.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
     self.allow_cancel = True
     
