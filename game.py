@@ -27,7 +27,7 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end","job_apply", "take_class"]
+    self.commands = ["move","end","job_apply", "take_course"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -134,10 +134,12 @@ class Game:
     
     # Parameters need to be provided
     if command is None:
+      self.log_debug("command(): command was None")
       return False
     
     # Parameters need to be valid
     if command not in self.commands:
+      self.log_debug("command(): command was not in self.commands")
       return False
     
     if command is "move":
@@ -183,15 +185,17 @@ class Game:
             player = parameters['player']
             self.log_debug("Looking up course %s in %s" % (parameters['course_choice'],player.location.name))
             course = player.location.get_course_by_number(parameters['course_choice'])
+            self.log_debug("Course %s being taken" % (course.name))
             if course:
               self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
               player.knowledge += course.knowledge_value
               player.completed_education.append(course.name)
+              self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
               #TODO will need to subtract the time the course takes as well
             else:
               self.log_error("Course %s not found in %s" % (parameters['course_choice'],player.location.name))
-      else:
-        self.log_error("Inavlid parameters for take_class command")
+        else:
+          self.log_error("Inavlid parameters for take_course command")
     
     #If we got here, then something didn't execute correctly
     return False
