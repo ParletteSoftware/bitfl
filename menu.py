@@ -52,6 +52,8 @@ class Menu(object):
           pass
         else:
           print "Invalid Option\n"
+    else:
+      print "No options available!\n"
   
   def add_option(self,key,value):
     """Add an option to the menu.
@@ -121,6 +123,31 @@ class JobMenu(Menu):
       self.allow_cancel = True
     
     return super(JobMenu,self).display(sort=True)
+
+class CourseMenu(Menu):
+  def __init__(self):
+    super(CourseMenu,self).__init__()
+    self.title = "Education Menu"
+    self.options = {}
+  
+  def display(self,course_list, player):
+    self.title = "Enroll in a course"
+    for c in course_list:
+      #Check if the player has the knowledge required, class required, or has already taken the course
+      player_can_take_course = True
+      if player.knowledge < c.knowledge_required:
+        player_can_take_course = False
+      if c.course_required:
+        if c.course_required not in player.completed_education:
+          player_can_take_course = False
+      if c.name in player.completed_education:
+        player_can_take_course = False
+      #Add course as an option if player is qualified and hasn't already taken it
+      if player_can_take_course:
+        self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
+    self.allow_cancel = True
+    
+    return super(CourseMenu,self).display(sort=True)
 
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
