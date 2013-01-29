@@ -20,6 +20,7 @@ from numpy import *
 from location import Location
 from job import Job
 from json import load
+from course import Course
 import os
 
 class Map:

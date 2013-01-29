@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu
 from player import Player
 from map import Map
 import os
