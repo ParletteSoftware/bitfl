@@ -43,4 +43,4 @@ class Player:
   def info_display(self):
     """Return a string with an information display for this player"""
     
-    return "%s\n%s\nLocation:\t%s\nJob:\t\t%s\n" % (self.name,"=" * len(self.name),self.location.name,str(self.job))
+    return "%s\n%s\nLocation:\t%s\nJob:\t\t%s\nKnowledge:\t%s\nClasses:\n\t%s\n" % (self.name,"=" * len(self.name),self.location.name,str(self.job),str(self.knowledge),"\n\t".join(self.completed_education))
