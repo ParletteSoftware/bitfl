@@ -122,6 +122,20 @@ class JobMenu(Menu):
     
     return super(JobMenu,self).display(sort=True)
 
+class ClassMenu(Menu):
+  def __init__(self):
+    super(JobMenu,self).__init__()
+    self.title = "Education Menu"
+    self.options = {}
+  
+  def display(self,class_list = None):
+    self.title = "Apply for job"
+    for c in class_list:
+      self.options[str(j.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
+    self.allow_cancel = True
+    
+    return super(ClassMenu,self).display(sort=True)
+
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the screen."""
