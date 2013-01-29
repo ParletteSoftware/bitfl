@@ -111,6 +111,8 @@ class Game:
             self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
           if selection == 'w':
             pass
+          if selection == 'i':
+            print player.info_display()
           if selection == 'c':
             self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
       self.new_turn()
