@@ -110,6 +110,37 @@
           "rank": 3
         }
       ]
+      "education":
+      [
+        {
+          "title": "Basic math",
+          "knowledge_value": 1,
+          "time": 1
+          "knowledge_required": 0,
+          "cost": 10
+        },
+        {
+          "title": "Basic reading",
+          "knowledge_value": 1,
+          "time": 1
+          "knowledge_required": 0,
+          "cost": 10
+        },        {
+          "title": "Basic writing",
+          "knowledge_value": 1,
+          "time": 1
+          "knowledge_required": 0,
+          "cost": 10
+        },
+        {
+          "title": "Advanced math",
+          "knowledge_value": 2,
+          "time": 2
+          "knowledge_required": 2,
+          "class_required": "Basic math",
+          "cost": 20
+        },
+      ]
     },
     
     {
