@@ -97,6 +97,17 @@ class Map:
                       pay=job_json["pay"],
                       rank=job_json["rank"])
             location.add_job(job)
+        if "education" in location_json:
+          for class_json in location_json["education"]:
+            self.log_debug("Processing class JSON %s" % str(class_json))
+            course = Course(name=class_json["title"],
+                            symbol=class_json["symbol"],
+                            knowledge_value=class_json["knowledge_value"],
+                            time=class_json["time"],
+                            knowledge_required=class_json["knowledge_required"],
+                            class_required=class_json["class_required"] if "class_required" in class_json else None,
+                            cost=class_json["cost"])
+            location.add_course(course)
         
         #Finally add this location to the map
         self.add_location(location_json["x"],location_json["y"],location)
