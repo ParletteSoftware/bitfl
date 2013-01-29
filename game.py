@@ -27,7 +27,7 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end","job_apply", "take_course"]
+    self.commands = ["move","end","job_apply", "course_enroll"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -96,7 +96,7 @@ class Game:
           if player.job in player.location.jobs:
             menu.add_option('w','Work')
           if player.location.courses:
-            menu.add_option('c','Take a course')
+            menu.add_option('c','Enroll in a course')
           selection = menu.display(self.turn,player)
           """Clear the screen, use cls if Windows or clear if Linux"""
           if not self.debug:
@@ -112,7 +112,7 @@ class Game:
           if selection == 'w':
             pass
           if selection == 'c':
-            self.command('take_course',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
+            self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
       self.new_turn()
   
   def new_turn(self):
@@ -177,7 +177,7 @@ class Game:
       #End Turn
       return True
     
-    if command is "take_course":
+    if command is "course_enroll":
       #Take a class
       if parameters:
         if set(['player','course_choice']).issubset(parameters):
@@ -195,7 +195,7 @@ class Game:
             else:
               self.log_error("Course %s not found in %s" % (parameters['course_choice'],player.location.name))
         else:
-          self.log_error("Inavlid parameters for take_course command")
+          self.log_error("Inavlid parameters for course_enroll command")
     
     #If we got here, then something didn't execute correctly
     return False
