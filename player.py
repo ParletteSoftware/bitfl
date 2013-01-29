@@ -25,6 +25,7 @@ class Player:
     self.location = None
     self.job = None
     self.turns = 0
+    self.knowledge = 0
   
   def __repr__(self):
     return str(self.name)
