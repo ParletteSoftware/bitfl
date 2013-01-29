@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu
 from player import Player
 from map import Map
 import os
@@ -27,7 +27,7 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end","job_apply"]
+    self.commands = ["move","end","job_apply", "course_enroll"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -95,6 +95,8 @@ class Game:
           menu.add_option('a','Apply for a job')
           if player.job in player.location.jobs:
             menu.add_option('w','Work')
+          if player.location.courses:
+            menu.add_option('c','Enroll in a course')
           selection = menu.display(self.turn,player)
           """Clear the screen, use cls if Windows or clear if Linux"""
           if not self.debug:
@@ -111,6 +113,8 @@ class Game:
             pass
           if selection == 'i':
             print player.info_display()
+          if selection == 'c':
+            self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
       self.new_turn()
   
   def new_turn(self):
@@ -132,10 +136,12 @@ class Game:
     
     # Parameters need to be provided
     if command is None:
+      self.log_debug("command(): command was None")
       return False
     
     # Parameters need to be valid
     if command not in self.commands:
+      self.log_debug("command(): command was not in self.commands")
       return False
     
     if command is "move":
@@ -172,6 +178,26 @@ class Game:
     if command is "end":
       #End Turn
       return True
+    
+    if command is "course_enroll":
+      #Take a class
+      if parameters:
+        if set(['player','course_choice']).issubset(parameters):
+          if parameters['course_choice'] != '' and parameters['course_choice'] != None:
+            player = parameters['player']
+            self.log_debug("Looking up course %s in %s" % (parameters['course_choice'],player.location.name))
+            course = player.location.get_course_by_number(parameters['course_choice'])
+            self.log_debug("Course %s being taken" % (course.name))
+            if course:
+              self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
+              player.knowledge += course.knowledge_value
+              player.completed_education.append(course.name)
+              self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
+              #TODO will need to subtract the time the course takes as well
+            else:
+              self.log_error("Course %s not found in %s" % (parameters['course_choice'],player.location.name))
+        else:
+          self.log_error("Inavlid parameters for course_enroll command")
     
     #If we got here, then something didn't execute correctly
     return False

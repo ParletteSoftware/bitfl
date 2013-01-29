@@ -18,15 +18,28 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
 
-class Player:
-  def __init__(self,name = "Player"):
+class Course:
+  def __init__(self,name = "Unnamed Course",
+               symbol = 12345,
+               knowledge_value = 50,
+               time = 50,
+               knowledge_required = 0,
+               course_required = None,
+               cost = 98765):
     self.name = name
     self.id = uuid4()
-    self.location = None
-    self.job = None
-    self.turns = 0
-    self.knowledge = 0
-    self.completed_education = []
+    #Symbol: the command for a user to reference this course
+    self.symbol = symbol
+    #Knowledge Value: How much the players knowledge increases from this course
+    self.knowledge_value = knowledge_value
+    #Time: Amount of time the course takes
+    self.time = time
+    #Knowledge Required: Base amount of knowledge required to take this course
+    self.knowledge_required = knowledge_required
+    #Course Required: An optional prerequisite course
+    self.course_required = course_required
+    #Cost: Amount of money it takes to enroll in this course
+    self.cost = cost
   
   def __repr__(self):
     return str(self.name)
@@ -34,13 +47,8 @@ class Player:
   def __eq__(self,other):
     return self.id == other.id if hasattr(other,"id") else False
   
-  def move(self,new_location):
-    """Change the player's location variable.
-    The validity of this move should be done before this function is called."""
-    self.location = new_location
-    return True
-
-  def info_display(self):
-    """Return a string with an information display for this player"""
-    
-    return "%s\n%s\nLocation:\t%s\nJob:\t\t%s\n" % (self.name,"=" * len(self.name),self.location.name,str(self.job))
+  def __gt__(self,other):
+    return self.rank > other.rank if hasattr(other,"rank") else False
+  
+  def __lt__(self,other):
+    return self.rank < ot
