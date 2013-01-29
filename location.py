@@ -24,6 +24,7 @@ class Location:
     self.id = uuid4()
     self.symbol = symbol
     self.jobs = []
+    self.courses = []
   
   def __eq__(self,other):
     return self.id == other.id if hasattr(other,"id") else False
@@ -39,6 +40,13 @@ class Location:
       return True
     return False
   
+  def add_course(self, new_course):
+    """Add the Course object to the list of available courses if it doesn't already exist."""
+    if new_course not in self.courses:
+      self.courses.append(new_course)
+      return True
+    return False
+  
   def get_job_by_symbol(self,symbol):
     for job in self.jobs:
       if symbol == job.symbol:
@@ -49,4 +57,10 @@ class Location:
     for job in self.jobs:
       if int(rank) == job.rank:
         return job
+    return None
+  
+  def get_course_by_number(self,symbol):
+    for course in self.courses:
+      if int(symbol) == course.symbol:
+        return course
     return None
