@@ -23,8 +23,8 @@ class Course:
                symbol = 12345,
                knowledge_value = 50,
                time = 50,
-               knowledge_required = 0
-               class_required = None
+               knowledge_required = 0,
+               class_required = None,
                cost = 98765):
     self.name = name
     self.id = uuid4()
