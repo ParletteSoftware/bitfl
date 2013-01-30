@@ -27,7 +27,7 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end","job_apply", "course_enroll"]
+    self.commands = ["move","end","job_apply", "job_work", "course_enroll"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -110,7 +110,7 @@ class Game:
           if selection == 'a':
             self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
           if selection == 'w':
-            pass
+            self.command('job_work',{'player':player})
           if selection == 'i':
             print player.info_display()
           if selection == 'c':
@@ -174,6 +174,14 @@ class Game:
               self.log_error("Job (rank %s) not found in %s" % (parameters['job_rank'],player.location.name))
         else:
           self.log_error("Inavlid parameters for apply command")
+    
+    if command is "job_work":
+      #Work at the players job
+      if parameters:
+        if set(['player']).issubset(parameters):
+          player = parameters['player']
+          player.money += player.job.pay
+          print "You've earned $%s" % (player.job.pay)
     
     if command is "end":
       #End Turn
