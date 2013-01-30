@@ -197,11 +197,16 @@ class Game:
             course = player.location.get_course_by_number(parameters['course_choice'])
             self.log_debug("Course %s being taken" % (course.name))
             if course:
-              self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
-              player.knowledge += course.knowledge_value
-              player.completed_education.append(course.name)
-              self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
-              #TODO will need to subtract the time the course takes as well
+              #Check if the player has enough money to pay for the course
+              if player.money >= course.cost:
+                self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
+                player.knowledge += course.knowledge_value
+                player.completed_education.append(course.name)
+                self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
+                player.money -= course.cost
+                #TODO will need to subtract the time the course takes as well
+              else:
+                print "You don't have enough money to enroll in this course!"
             else:
               self.log_error("Course %s not found in %s" % (parameters['course_choice'],player.location.name))
         else:
