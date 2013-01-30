@@ -23,7 +23,8 @@ class Job:
                symbol = "!",
                availability = 50,
                pay = 1,
-               rank = 0):
+               rank = 0,
+               location = None):
     self.name = name
     self.id = uuid4()
     #Symbol: the command for a user to reference this job
@@ -35,6 +36,8 @@ class Job:
     self.pay = pay
     #Rank: Where this job stands with regard to other jobs at its location
     self.rank = rank
+    #Location: The location of this job
+    self.location = location
   
   def __repr__(self):
     return str(self.name)

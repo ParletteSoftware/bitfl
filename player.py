@@ -46,7 +46,7 @@ class Player:
     
     s = "%s\n%s\nLocation:\t%s\n" % (self.name,"=" * len(self.name),self.location.name)
     if self.job:
-      s += "Job:\t\t%s ($%s pay per unit)\n" % (str(self.job),str(self.job.pay))
+      s += "Job:\t\t%s at %s ($%s pay per unit)\n" % (str(self.job),str(self.job.location.name),str(self.job.pay))
     else:
       s += "Job:\t\tNone\n"
     s += "Current money:\t$%s\n" % (str(self.money))
