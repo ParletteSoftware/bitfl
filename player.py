@@ -51,4 +51,15 @@ class Player:
       s += "Job:\t\tNone\n"
     s += "Current money:\t$%s\n" % (str(self.money))
     s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge),"\n\t".join(self.completed_education))
+    s += "Happiness:\t%s\n" % (str(self.happiness()))
     return s
+  
+  def happiness(self):
+    """Return a happiness value that is calculated from the player's attributes"""
+    happiness = self.knowledge / 10
+    happiness += self.money / 100
+    happiness += len(self.completed_education)
+    if self.job:
+      happiness += self.job.rank
+    
+    return happiness
