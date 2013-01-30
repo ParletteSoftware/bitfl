@@ -96,7 +96,8 @@ class Map:
                       symbol=job_json["symbol"] if "symbol" in job_json else "",
                       availability=job_json["availability"],
                       pay=job_json["pay"],
-                      rank=job_json["rank"])
+                      rank=job_json["rank"],
+                      location=location)
             location.add_job(job)
         if "education" in location_json:
           for class_json in location_json["education"]:
