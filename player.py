@@ -49,5 +49,6 @@ class Player:
       s += "Job:\t\t%s ($%s pay per unit)\n" % (str(self.job),str(self.job.pay))
     else:
       s += "Job:\t\tNone\n"
+    s += "Current money:\t$%s\n" % (str(self.money))
     s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge),"\n\t".join(self.completed_education))
     return s
