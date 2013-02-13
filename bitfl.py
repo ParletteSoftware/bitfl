@@ -24,6 +24,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Process command line options.')
 parser.add_argument('--debug', action='store_true', help='Turn on debug logging')
+parser.add_argument('--version', action='store_true', help='Display the current version')
 args = parser.parse_args()
 
 done = False
@@ -34,6 +35,10 @@ while not done:
   if not args.debug:
     os.system('cls' if os.name=='nt' else 'clear')
   print "Welcome to Billy in the Fat Lane"
+  if args.version:
+    f = open('version_history.txt', 'r')
+    print "The current version is " + f.readline()
+    f.close()
   selection = main_menu.display().lower()
   """Clear the screen, use cls if Windows or clear if Linux"""
   if not args.debug:
