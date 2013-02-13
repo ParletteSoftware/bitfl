@@ -38,6 +38,7 @@ while not done:
   if args.version:
     f = open('version_history.txt', 'r')
     print "The current version is " + f.readline()
+    print "See version_history.txt for more details on what is in this version."
     f.close()
   selection = main_menu.display().lower()
   """Clear the screen, use cls if Windows or clear if Linux"""
