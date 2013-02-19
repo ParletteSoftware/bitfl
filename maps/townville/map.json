@@ -167,6 +167,19 @@
           "pay": 8,
           "rank": 2
         }
+      ],
+      "items":
+      [
+        {
+          "title": "Hamburger Meal",
+          "availability": 100,
+          "cost": 5
+        },
+        {
+          "title": "Fries",
+          "availability": 100,
+          "cost": 3
+        }
       ]
     },
     

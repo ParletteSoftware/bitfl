@@ -25,12 +25,23 @@ class Location:
     self.symbol = symbol
     self.jobs = []
     self.courses = []
+    self.items = []
   
   def __eq__(self,other):
     return self.id == other.id if hasattr(other,"id") else False
   
   def __repr__(self):
     return str(self.symbol)
+  
+  def debug_string(self):
+    """For debugging, print out all of the variables of this object"""
+    s = "Name:\t%s" % self.name
+    s += "\nID:\t%s" % self.id
+    s += "\nSymbol:\t%s" % self.symbol
+    s += "\nJobs: %s" % str(self.jobs)
+    s += "\nCourses: %s" % str(self.courses)
+    s += "\nItems: %s" % str(self.items)
+    return s
   
   def add_job(self,new_job):
     """Add the Job object to the list of jobs if it doesn't already exist.'"""
@@ -64,3 +75,10 @@ class Location:
       if int(symbol) == course.symbol:
         return course
     return None
+  
+  def add_item(self,new_item):
+    """Add the item to the list if it doesn't already exist"""
+    if new_item not in self.items:
+      self.items.append(new_item)
+      return True
+    return False

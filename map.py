@@ -21,6 +21,7 @@ from location import Location
 from job import Job
 from json import load
 from course import Course
+from item import Item
 import os
 
 class Map:
@@ -110,8 +111,17 @@ class Map:
                             course_required=class_json["course_required"] if "course_required" in class_json else None,
                             cost=class_json["cost"])
             location.add_course(course)
+        if "items" in location_json:
+          for items_json in location_json["items"]:
+            self.log_debug("Processing item JSON %s" % str(items_json))
+            item = Item(name=items_json["title"],
+                      symbol=items_json["symbol"] if "symbol" in items_json else "",
+                      availability=items_json["availability"],
+                      cost=items_json["cost"])
+            location.add_item(item)
         
         #Finally add this location to the map
+        self.log_debug("Loaded location from file:\n%s" % location.debug_string())
         self.add_location(location_json["x"],location_json["y"],location)
       
       #Close the file
