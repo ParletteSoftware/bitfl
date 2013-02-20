@@ -28,6 +28,7 @@ class Player:
     self.knowledge = 0
     self.completed_education = []
     self.money = 0
+    self.items = []
   
   def __repr__(self):
     return str(self.name)
@@ -63,3 +64,7 @@ class Player:
       happiness += self.job.rank
     
     return happiness
+
+  def add_item(self,new_item):
+    if new_item:
+      self.items.append(new_item)

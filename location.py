@@ -82,3 +82,18 @@ class Location:
       self.items.append(new_item)
       return True
     return False
+  
+  def get_item(self,id = None,delete = False):
+    """Return an item referenced by any key, such as ID or name.
+    
+    If delete is True, then the item will be removed from the items list."""
+    
+    i = 0
+    if id:
+      for item in self.items:
+        if item.id is id:
+          return self.items.pop(i) if delete else item
+        i += 1
+  
+  def has_items(self):
+    return True if self.items and len(self.items) > 0 else False

@@ -149,6 +149,24 @@ class CourseMenu(Menu):
     
     return super(CourseMenu,self).display(sort=True)
 
+class ListMenu(Menu):
+  """A generic menu that allows the user to select items from a list.
+  
+  Note that this returns the object in the list, not the index of that item."""
+  def __init__(self,title = "List Menu",options = []):
+    super(ListMenu,self).__init__()
+    self.title = title
+    #Convert the passed list into a dictionary
+    self.options = {}
+    i = 1
+    for item in options:
+      self.options[str(i)] = item
+      i += 1
+  
+  def display(self):
+    """Return the object from the list rather than the index of that item."""
+    return self.options[super(ListMenu,self).display(sort=False)]
+
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the screen."""

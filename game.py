@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, ListMenu
 from player import Player
 from map import Map
 import os
@@ -27,7 +27,8 @@ class Game:
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
-    self.commands = ["move","end","job_apply", "job_work", "course_enroll"]
+    self.commands = ["move","end","job_apply", "job_work", "course_enroll",
+                     "item_buy"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -94,12 +95,18 @@ class Game:
         turn_done = False
         while not turn_done:
           menu = TurnMenu()
+          
+          #Add menu items currently available
           menu.add_option('a','Apply for a job')
           if player.job in player.location.jobs:
             menu.add_option('w','Work')
           if player.location.courses:
             menu.add_option('c','Enroll in a course')
+          if player.location.has_items():
+            menu.add_option('b','Buy Items')
+            
           selection = menu.display(self.turn,player,self.time_left)
+          
           """Clear the screen, use cls if Windows or clear if Linux"""
           if not self.debug:
             os.system('cls' if os.name=='nt' else 'clear')
@@ -118,6 +125,8 @@ class Game:
             print player.info_display()
           if selection == 'c':
             self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
+          if selection == 'b':
+            self.command('item_buy',{'player':player, 'item':ListMenu("Select Item to Purchase",player.location.items).display()})
       self.new_turn()
   
   def new_turn(self):
