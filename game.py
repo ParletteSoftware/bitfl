@@ -126,7 +126,8 @@ class Game:
           if selection == 'c':
             self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
           if selection == 'b':
-            self.command('item_buy',{'player':player, 'item':ListMenu("Select Item to Purchase",player.location.items).display()})
+            item = ListMenu("Select Item to Purchase",player.location.items).display()
+            self.command('item_buy',{'player':player, 'item':item})
       self.new_turn()
   
   def new_turn(self):
@@ -248,6 +249,25 @@ class Game:
               self.log_error("Course %s not found in %s" % (parameters['course_choice'],player.location.name))
         else:
           self.log_error("Inavlid parameters for course_enroll command")
+    
+    if command is "item_buy":
+      if parameters:
+        if set(['player','item']).issubset(parameters):
+          item = parameters['item']
+          player = parameters['player']
+          if item in player.location.items:
+            if player.money >= item.cost:
+              player.add_item(player.location.get_item(id=item.id,delete=True))
+              self.log_debug("Moved item (%s) from location (%s) to player (%s)" % (item,player,player.location))
+              player.money -= item.cost
+            else:
+              print "You don't have enough money for this item"
+          else:
+            self.log_error("Item (%s) not found in location (items: %s)" % (item,str(player.location.items)))
+        else:
+          self.log_error("Invalid parameters for %s. Parameters received as %s" % (command,str(parameters)))
+      else:
+        self.log_error("No parameters received for %s, but they were expected" % command)
     
     #If we got here, then something didn't execute correctly
     return False
