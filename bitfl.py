@@ -22,9 +22,13 @@ from map import Map
 import os
 import argparse
 
+version = None
+with open('version_history.txt', 'r') as f:
+  version = f.readline()[:-1]
+
 parser = argparse.ArgumentParser(description='Process command line options.')
 parser.add_argument('--debug', action='store_true', help='Turn on debug logging')
-parser.add_argument('--version', action='store_true', help='Display the current version')
+parser.add_argument('--version', action='version', version='Billy in the Fat Lane v'+version)
 args = parser.parse_args()
 
 done = False
@@ -34,12 +38,7 @@ while not done:
   """Clear the screen, use cls if Windows or clear if Linux"""
   if not args.debug:
     os.system('cls' if os.name=='nt' else 'clear')
-  print "Welcome to Billy in the Fat Lane"
-  if args.version:
-    f = open('version_history.txt', 'r')
-    print "The current version is " + f.readline()
-    print "See version_history.txt for more details on what is in this version."
-    f.close()
+  print "Welcome to Billy in the Fat Lane v"+version+"\n"
   selection = main_menu.display().lower()
   """Clear the screen, use cls if Windows or clear if Linux"""
   if not args.debug:
