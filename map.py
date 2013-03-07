@@ -114,10 +114,17 @@ class Map:
         if "items" in location_json:
           for items_json in location_json["items"]:
             self.log_debug("Processing item JSON %s" % str(items_json))
+            effects = {}
+            if "effects" in items_json:
+              for effect in items_json["effects"]:
+                self.log_debug("Processing effect json: %s" % str(effect))
+                effects[effect['attribute']] = effect['value']
+            self.log_debug("Loaded effects as %s" % (str(effects)))
             item = Item(name=items_json["title"],
                       symbol=items_json["symbol"] if "symbol" in items_json else "",
                       availability=items_json["availability"],
-                      cost=items_json["cost"])
+                      cost=items_json["cost"],
+                      effects=effects)
             location.add_item(item)
         
         #Finally add this location to the map

@@ -22,7 +22,8 @@ class Item:
   def __init__(self,name = "Unnamed Item",
                symbol = "!",
                availability = 50,
-               cost = 1):
+               cost = 1,
+               effects = {}):
     self.name = name
     self.id = uuid4()
     #Symbol: the command for a user to reference this item
@@ -32,6 +33,9 @@ class Item:
     self.availability = availability
     #Cost: The cost to buy this item
     self.cost = cost
+    
+    #Effects: What will this item do?
+    self.effects = effects
   
   def __repr__(self):
     return str(self.name)

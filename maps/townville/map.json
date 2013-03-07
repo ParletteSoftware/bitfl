@@ -173,12 +173,14 @@
         {
           "title": "Hamburger Meal",
           "availability": 100,
-          "cost": 5
+          "cost": 5,
+          "effects": [{"attribute": "hunger", "value": -2},{"attribute": "fatness", "value": 0.5}]
         },
         {
           "title": "Fries",
           "availability": 100,
-          "cost": 3
+          "cost": 3,
+          "effects": [{"attribute": "hunger", "value": -1},{"attribute": "fatness", "value": 0.3}]
         }
       ]
     },
