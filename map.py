@@ -126,6 +126,7 @@ class Map:
                       cost=items_json["cost"],
                       effects=effects)
             location.add_item(item)
+            self.log_debug("Added item:\n%s" % item.debug_string())
         
         #Finally add this location to the map
         self.log_debug("Loaded location from file:\n%s" % location.debug_string())

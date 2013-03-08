@@ -45,3 +45,13 @@ class Item:
   
   def __gt__(self,other):
     return self.name > other.name if hasattr(other,"name") else False
+  
+  def debug_string(self):
+    s = "%s\n%s\nID: %s\nAvailability: %s\nCost: %s\nEffects:\n\t%s" % (self.name,
+                                                                    "-"*len(self.name),
+                                                                    str(self.id),
+                                                                    self.availability,
+                                                                    self.cost,
+                                                                    "\n\t".join("%s (%.2f)" % (str(d),self.effects[d]) for d in self.effects) if len(self.effects) else "None"
+                                                                    )
+    return s
