@@ -70,3 +70,9 @@ class Player:
   def add_item(self,new_item):
     if new_item:
       self.items.append(new_item)
+  
+  def use_item(self,item):
+    """Consume the item, applying its effects on this player instance."""
+    if item in self.items:
+      for effect in item.effects:
+        pass

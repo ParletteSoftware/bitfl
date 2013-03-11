@@ -28,7 +28,7 @@ class Game:
     self.debug = debug
     #Valid commands this game class will accept
     self.commands = ["move","end","job_apply", "job_work", "course_enroll",
-                     "item_buy"]
+                     "item_buy","item_use"]
     #Has the game been started?
     self.started = False
     #List of player objects
@@ -104,6 +104,8 @@ class Game:
             menu.add_option('c','Enroll in a course')
           if player.location.has_items():
             menu.add_option('b','Buy Items')
+          if len(player.items):
+            menu.add_option('u','Use Item')
             
           selection = menu.display(self.turn,player,self.time_left)
           
@@ -128,6 +130,9 @@ class Game:
           if selection == 'b':
             item = ListMenu("Select Item to Purchase",player.location.items).display()
             self.command('item_buy',{'player':player, 'item':item})
+          if selection == 'u':
+            item = ListMenu("Select Item to Use",player.items).display()
+            self.command('item_use',{'player':player, 'item':item})
       self.new_turn()
   
   def new_turn(self):
@@ -268,6 +273,20 @@ class Game:
           self.log_error("Invalid parameters for %s. Parameters received as %s" % (command,str(parameters)))
       else:
         self.log_error("No parameters received for %s, but they were expected" % command)
+    
+    if command is "item_use":
+      if parameters and set(['player','item']).issubset(parameters):
+        item = parameters['item']
+        player = parameters['player']
+        self.log_debug("Player item list: %s" % (str(player.items)))
+        self.log_debug("Player item list (id): %s" % ([x.id for x in player.items]))
+        self.log_debug("ID of item: %s" % item.id)
+        if item in player.items:
+          #use the item
+          self.log_debug("Consuming item (%s) with effects %s" % (str(item),str(item.effects)))
+          player.use_item(item)
+        else:
+          self.log_error("This item (%s) does not belong to this player (%s)" % (str(item),str(player)))
     
     #If we got here, then something didn't execute correctly
     return False
