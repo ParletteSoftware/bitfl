@@ -75,4 +75,7 @@ class Player:
     """Consume the item, applying its effects on this player instance."""
     if item in self.items:
       for effect in item.effects:
-        pass
+        if hasattr(self,effect):
+          setattr(self,effect,getattr(self,effect) + item.effects[effect])
+          #Set the value to 0 if it just went below 0
+          setattr(self,effect,0) if getattr(self.effect) < 0
