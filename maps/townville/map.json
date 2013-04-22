@@ -59,6 +59,15 @@
           "pay": 4,
           "rank": 2
         }
+      ],
+      "items":
+      [
+        {
+          "title": "Hot New Book",
+          "availability": 100,
+          "cost": 5,
+          "effects": [{"attribute": "happiness", "value": 1}]
+        }
       ]
     },
     

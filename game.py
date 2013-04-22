@@ -285,6 +285,7 @@ class Game:
           #use the item
           self.log_debug("Consuming item (%s) with effects %s" % (str(item),str(item.effects)))
           player.use_item(item)
+          self.log_debug("Player attributes are now %s" % (str(player.attributes)))
         else:
           self.log_error("This item (%s) does not belong to this player (%s)" % (str(item),str(player)))
     

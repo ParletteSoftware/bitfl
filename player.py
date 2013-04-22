@@ -29,6 +29,9 @@ class Player:
     self.completed_education = []
     self.money = 0
     self.items = []
+    self.attributes = {'hunger': 0,
+                       'fatness': 0,
+                      }
   
   def __repr__(self):
     return str(self.name)
@@ -55,6 +58,8 @@ class Player:
     
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
     s += "Happiness:\t%s\n" % (str(self.happiness()))
+    for attribute,value in self.attributes.iteritems():
+      s += "%s:\t%s\n" % (str(attribute).capitalize(),str(value))
     return s
   
   def happiness(self):
@@ -75,7 +80,10 @@ class Player:
     """Consume the item, applying its effects on this player instance."""
     if item in self.items:
       for effect in item.effects:
-        if hasattr(self,effect):
-          setattr(self,effect,getattr(self,effect) + item.effects[effect])
+        if effect in self.attributes:
+          print "attribute: %s, effect: %s" % (self.attributes[effect],int(item.effects[effect])) #TODO
+          self.attributes[effect] += item.effects[effect]
           #Set the value to 0 if it just went below 0
-          setattr(self,effect,0) if getattr(self.effect) < 0
+          if self.attributes[effect] < 0:
+            self.attributes[effect] = 0
+      self.items.remove(item)
