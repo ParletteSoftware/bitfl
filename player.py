@@ -81,7 +81,6 @@ class Player:
     if item in self.items:
       for effect in item.effects:
         if effect in self.attributes:
-          print "attribute: %s, effect: %s" % (self.attributes[effect],int(item.effects[effect])) #TODO
           self.attributes[effect] += item.effects[effect]
           #Set the value to 0 if it just went below 0
           if self.attributes[effect] < 0:
