@@ -149,6 +149,25 @@ class CourseMenu(Menu):
     
     return super(CourseMenu,self).display(sort=True)
 
+class BuyMenu(Menu):
+  def __init__(self):
+    super(BuyMenu,self).__init__()
+    self.title = "Buying An Item"
+    self.options = {}
+  
+  def display(self,item_list):
+    if item_list:
+      for i in item_list:
+        #We use a string representation of the index of each item
+        self.options[str(item_list.index(i))] = "%s ($%s)" % (i.name,str(i.cost))
+        print "options: %s" % str(self.options)
+      self.allow_cancel = True
+    
+    selection = super(BuyMenu,self).display(sort=True)
+    if selection:
+      #Convert the selection from string (above) to int for lookup
+      return item_list[int(selection)]
+
 class ListMenu(Menu):
   """A generic menu that allows the user to select items from a list.
   

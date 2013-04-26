@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, ListMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, BuyMenu, ListMenu
 from player import Player
 from map import Map
 import os
@@ -128,8 +128,9 @@ class Game:
           if selection == 'c':
             self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
           if selection == 'b':
-            item = ListMenu("Select Item to Purchase",player.location.items).display()
-            self.command('item_buy',{'player':player, 'item':item})
+            item = BuyMenu().display(player.location.items)
+            if item:
+              self.command('item_buy',{'player':player, 'item':item})
           if selection == 'u':
             item = ListMenu("Select Item to Use",player.items).display()
             self.command('item_use',{'player':player, 'item':item})
