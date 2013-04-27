@@ -160,7 +160,6 @@ class BuyMenu(Menu):
       for i in item_list:
         #We use a string representation of the index of each item
         self.options[str(item_list.index(i))] = "%s ($%s)" % (i.name,str(i.cost))
-        print "options: %s" % str(self.options)
       self.allow_cancel = True
     
     selection = super(BuyMenu,self).display(sort=True)
