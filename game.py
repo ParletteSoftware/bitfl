@@ -95,9 +95,8 @@ class Game:
         turn_done = False
         while not turn_done:
           menu = TurnMenu()
-          
-          #Add menu items currently available
-          menu.add_option('a','Apply for a job')
+          if player.location.jobs:
+            menu.add_option('a','Apply for a job')
           if player.job in player.location.jobs:
             menu.add_option('w','Work')
           if player.location.courses:

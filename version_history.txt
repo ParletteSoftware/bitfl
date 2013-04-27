@@ -1,0 +1,27 @@
+0.70
+-----
+#1 - Created initial files
+#2 - Created main menu
+#3 - Created the Player class
+#4 - Created the Location class
+#5 - Created Game class
+#7 - Added license information
+#13 - Allow player to move
+#14 - Added ability to load map file
+#18 - Added command line options
+#19 - Created initial map file
+#20 - Make map grid consistent size
+#21 - Clear display on every screen
+#24 - Verify location symbols are unique
+#26 - Add more locations
+#27 - Add jobs
+#28 - Allow player to apply for a job
+#33 - Add money to each player
+#34 - Add happiness to each player
+#35 - Add knowledge to each player
+#41 - Game can start with no players
+#43 - Townsville has 2 locations that use the same symbol
+#49 - "Apply for jobs" is an option even when there are no jobs at that location
+#50 - Player info display
+#56 - Link job to a location
+#60 - Make a limited amount of time per turn
