@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
-from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, BuyMenu, ListMenu
+from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, BuyMenu, ListMenu, QuitMenu
 from player import Player
 from map import Map
 import os
@@ -56,15 +56,21 @@ class Game:
   
   def start(self):
     menu = NewGameMenu()
-    
     #Display the menu until the user quits or starts the game
-    while True:
+    quit_to_main_menu = False
+    quit_completely = False
+    while not quit_to_main_menu:
       selection = menu.display().lower()
       """Clear the screen, use cls if Windows or clear if Linux"""
       if not self.debug:
         os.system('cls' if os.name=='nt' else 'clear')
       if selection == 'q':
-        break
+        quit_completely, quit_to_main_menu = QuitMenu().display()
+        self.log_debug("Results from QuitMenu was"+str(quit_completely)+str(quit_to_main_menu))
+        if quit_completely:
+          return self.started, quit_completely
+        if quit_to_main_menu:
+          break
       if selection == 's':
         if not self.players:
           print "No players added, please add a player before starting the game."
@@ -84,13 +90,14 @@ class Game:
         print "Player List:"
         print "\n".join(str(x) for x in self.players)
     
-    return self.started
+    return self.started, quit_completely
   
   def run(self):
     """Process user commands until they want to exit."""
     #Loop until something breaks it, like a quit event
     move_menu = MoveMenu(self.map.locations)
-    while True:
+    quit_to_main_menu = False
+    while not quit_to_main_menu:
       for player in self.players:
         turn_done = False
         while not turn_done:
@@ -112,7 +119,12 @@ class Game:
           if not self.debug:
             os.system('cls' if os.name=='nt' else 'clear')
           if selection == 'q':
-            return True
+            quit_completely, quit_to_main_menu = QuitMenu().display()
+            print quit_completely, quit_to_main_menu
+            if quit_completely:
+              return True
+            if quit_to_main_menu:
+              return False
           if selection == 'e':
             self.time_left = 10
             turn_done = True
@@ -291,3 +303,4 @@ class Game:
     
     #If we got here, then something didn't execute correctly
     return False
+  
