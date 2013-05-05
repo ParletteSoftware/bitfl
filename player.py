@@ -25,13 +25,13 @@ class Player:
     self.location = None
     self.job = None
     self.turns = 0
-    self.knowledge = 0
     self.completed_education = []
-    self.money = 0
     self.items = []
-    self.attributes = {'hunger': 0,
-                       'fatness': 0,
-                      }
+    #Major Attributes
+    self.health = 0
+    self.knowledge = 0
+    self.money = 0
+    self.happiness = 0
   
   def __repr__(self):
     return str(self.name)
@@ -62,15 +62,15 @@ class Player:
       s += "%s:\t%s\n" % (str(attribute).capitalize(),str(value))
     return s
   
-  def happiness(self):
-    """Return a happiness value that is calculated from the player's attributes"""
-    happiness = self.knowledge / 10
-    happiness += self.money / 100
-    happiness += len(self.completed_education)
+  def get_happiness(self):
+    """Set the happiness instance variable calculated by the player's attributes and return it."""
+    self.happiness = self.knowledge / 10
+    self.happiness += self.money / 100
+    self.happiness += len(self.completed_education)
     if self.job:
-      happiness += self.job.rank
+      self.happiness += self.job.rank
     
-    return happiness
+    return self.happiness
 
   def add_item(self,new_item):
     if new_item:
@@ -86,3 +86,18 @@ class Player:
           if self.attributes[effect] < 0:
             self.attributes[effect] = 0
       self.items.remove(item)
+
+class Attribute:
+  def __init__(self,name="Attribute",value=0):
+    self.name = name
+    self.id = uuid4()
+    self.value = value
+    self.minor_attributes = None
+  
+  def __repr__(self):
+    return str(self.name)
+  
+  def calculate(self):
+    """Override this method to define how this attribute's value is calculated.'"""
+    pass
+  
