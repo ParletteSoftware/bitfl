@@ -28,10 +28,10 @@ class Player:
     self.completed_education = []
     self.items = []
     #Major Attributes
-    self.health = 0
-    self.knowledge = 0
+    self.health = Health()
+    self.knowledge = Knowledge()
+    self.happiness = Happiness()
     self.money = 0
-    self.happiness = 0
   
   def __repr__(self):
     return str(self.name)
@@ -54,23 +54,18 @@ class Player:
     else:
       s += "Job:\t\tNone\n"
     s += "Current money:\t$%s\n" % (str(self.money))
-    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge),"\n\t".join(self.completed_education) if self.completed_education else "None")
+    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge.value),"\n\t".join(self.completed_education) if self.completed_education else "None")
     
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
-    s += "Happiness:\t%s\n" % (str(self.happiness()))
-    for attribute,value in self.attributes.iteritems():
-      s += "%s:\t%s\n" % (str(attribute).capitalize(),str(value))
-    return s
+    s += "Happiness:\t%s\n" % (str(self.happiness.value))
   
   def get_happiness(self):
-    """Set the happiness instance variable calculated by the player's attributes and return it."""
-    self.happiness = self.knowledge / 10
-    self.happiness += self.money / 100
-    self.happiness += len(self.completed_education)
-    if self.job:
-      self.happiness += self.job.rank
+    """Set the happiness instance variable calculated by the player's attributes and return it.
     
-    return self.happiness
+    WARNING: This method is deprecated. Use Player.happiness.value instead."""
+    self.happiness.calculate(self.health,self.knowledge.self.money,self.job)
+    
+    return self.happiness.value
 
   def add_item(self,new_item):
     if new_item:
@@ -99,5 +94,29 @@ class Attribute:
   
   def calculate(self):
     """Override this method to define how this attribute's value is calculated.'"""
+    pass
+  
+class Happiness(Attribute):
+  def __init__(self,value=0):
+    super(Happiness,self).__init__("Happiness",value)
+  
+  def calculate(self,health,knowledge,money,job=None):
+    self.value = self.knowledge.value / 10
+    self.value += self.money / 100
+    if job:
+      self.value += job.rank
+
+class Health(Attribute):
+  def __init__(self,value=0):
+    super(Health,self).__init__("Health",value)
+  
+  def calculate(self):
+    pass
+
+class Knowledge(Attribute):
+  def __init__(self,value=0):
+    super(Knowledge,self).__init__("Knowledge",value)
+  
+  def calculate(self):
     pass
   
