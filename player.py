@@ -54,18 +54,16 @@ class Player:
     else:
       s += "Job:\t\tNone\n"
     s += "Current money:\t$%s\n" % (str(self.money))
-    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge.value),"\n\t".join(self.completed_education) if self.completed_education else "None")
+    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge.get()),"\n\t".join(self.completed_education) if self.completed_education else "None")
     
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
-    s += "Happiness:\t%s\n" % (str(self.happiness.value))
+    s += "Happiness:\t%s\n" % (str(self.happiness.get()))
   
   def get_happiness(self):
     """Set the happiness instance variable calculated by the player's attributes and return it.
     
-    WARNING: This method is deprecated. Use Player.happiness.value instead."""
-    self.happiness.calculate(self.health,self.knowledge.self.money,self.job)
-    
-    return self.happiness.value
+    WARNING: This method is deprecated. Use Player.happiness.get() instead."""
+    return self.happiness.get()
 
   def add_item(self,new_item):
     if new_item:
@@ -92,6 +90,11 @@ class Attribute:
   def __repr__(self):
     return str(self.name)
   
+  def get():
+    """Return the calculated value for this attribute."""
+    self.calculate()
+    return self.value
+  
   def calculate(self):
     """Override this method to define how this attribute's value is calculated.'"""
     pass
@@ -100,11 +103,9 @@ class Happiness(Attribute):
   def __init__(self,value=0):
     super(Happiness,self).__init__("Happiness",value)
   
-  def calculate(self,health,knowledge,money,job=None):
-    self.value = self.knowledge.value / 10
-    self.value += self.money / 100
-    if job:
-      self.value += job.rank
+  #TODO: how can I pass these values in without explicitly passing them?
+  def calculate(self):
+    pass
 
 class Health(Attribute):
   def __init__(self,value=0):
