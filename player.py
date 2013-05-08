@@ -28,10 +28,10 @@ class Player:
     self.completed_education = []
     self.items = []
     #Major Attributes
-    self.health = Health()
-    self.knowledge = Knowledge()
-    self.happiness = Happiness()
-    self.money = Money()
+    self.attributes = {"health": Health(),
+                       "knowledge": Knowledge(),
+                       "happiness": Happiness(),
+                       "money": Money()}
   
   def __repr__(self):
     return str(self.name)
@@ -53,11 +53,11 @@ class Player:
       s += "Job:\t\t%s at %s ($%s pay per unit)\n" % (str(self.job),str(self.job.location.name),str(self.job.pay))
     else:
       s += "Job:\t\tNone\n"
-    s += "Current money:\t$%s\n" % (str(self.money.get()))
-    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge.get()),"\n\t".join(self.completed_education) if self.completed_education else "None")
+    s += "Current money:\t$%s\n" % (str(self.attributes['money'].get()))
+    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.attributes['knowledge'].get()),"\n\t".join(self.completed_education) if self.completed_education else "None")
     
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
-    s += "Happiness:\t%s\n" % (str(self.happiness.get()))
+    s += "Happiness:\t%s\n" % (str(self.attributes['happiness'].get()))
   
   def get_happiness(self):
     """Set the happiness instance variable calculated by the player's attributes and return it.
