@@ -90,6 +90,19 @@ class Attribute:
   def __repr__(self):
     return str(self.name)
   
+  def set(value = 0, delta = 0):
+    """Change the value of this attribute.
+    If value is provided, then the attriute value is set to this number.
+    Otherwise, if delta is provided, the attribute value will add this to its current value.
+    If neither is provided, then this method does nothing."""
+    
+    if value:
+      self.value = value
+    elif delta:
+      self.value += delta
+    else:
+      return
+  
   def get():
     """Return the calculated value for this attribute."""
     self.calculate()
