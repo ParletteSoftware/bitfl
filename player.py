@@ -31,7 +31,7 @@ class Player:
     self.health = Health()
     self.knowledge = Knowledge()
     self.happiness = Happiness()
-    self.money = 0
+    self.money = Money()
   
   def __repr__(self):
     return str(self.name)
@@ -53,7 +53,7 @@ class Player:
       s += "Job:\t\t%s at %s ($%s pay per unit)\n" % (str(self.job),str(self.job.location.name),str(self.job.pay))
     else:
       s += "Job:\t\tNone\n"
-    s += "Current money:\t$%s\n" % (str(self.money))
+    s += "Current money:\t$%s\n" % (str(self.money.get()))
     s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.knowledge.get()),"\n\t".join(self.completed_education) if self.completed_education else "None")
     
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
@@ -117,6 +117,13 @@ class Health(Attribute):
 class Knowledge(Attribute):
   def __init__(self,value=0):
     super(Knowledge,self).__init__("Knowledge",value)
+  
+  def calculate(self):
+    pass
+  
+class Money(Attribute):
+  def __init__(self,value=0):
+    super(Money,self).__init__("Money",value)
   
   def calculate(self):
     pass
