@@ -53,7 +53,11 @@ class Gui:
     
     self.infobox = InfoBox(self.screen, Rect(0, self.screen.get_height()*.9, self.screen.get_width(), 
                           self.screen.get_height()*.1), border_width=2, border_color=Color('yellow'), font=('verdana', 16))
-    
+    self.optionsbox = OptionsBox(self.screen, Rect(self.screen.get_width()*.9, 0, self.screen.get_width()*.1, 
+                               self.screen.get_height()*.9), border_width=2, border_color=Color('red'), 
+                               font=('verdana', 16))
+    self.mapbox = MapBox(self.screen, Rect(0, 0, self.screen.get_width()*.9, self.screen.get_height()*.9), 
+                         border_width=2, border_color=Color('green'), font=('verdana', 16))
     #A - Action (broke this down into ALTER steps)
   
   def run(self):
@@ -86,6 +90,8 @@ class Gui:
     	##R - Refresh display
     	self.screen.blit(self.background, (0,0))
     	self.infobox.draw(player.info_display().split('\n'))
+    	self.optionsbox.draw()
+    	self.mapbox.draw(testMap)
     	pygame.display.flip()
     
     #end of main game loop
@@ -94,8 +100,8 @@ class Gui:
 
 class BaseBox:
   #Base class for any box on the screen, this probably shouldn't ever be directly called
-  def __init__(self, surface, rect, font=('arial', 20), font_color=Color('white'),
-               bgcolor=Color('gray25'), border_width=0, border_color=Color('black')):
+  def __init__(self, surface, rect, font=('arial', 20), font_color=Color('white'), text="Text!",
+              bgcolor=Color('gray25'), border_width=0, border_color=Color('black')):
     """ rect: The (outer) rectangle defining the location and size of the box on the surface.
         bgcolor: The background color
         border_width: Width of the border. If 0, no border is drawn. If > 0, the border 
@@ -111,17 +117,19 @@ class BaseBox:
     self.bgcolor = bgcolor
     self.font = pygame.font.SysFont(*font)
     self.font_color = font_color
+    self.text = text
     self.border_width = border_width
     self.border_color = border_color
     # Internal drawing rectangle of the box 
     self.inner_rect = Rect(self.rect.left + self.border_width, self.rect.top + self.border_width,
         self.rect.width - self.border_width * 2, self.rect.height - self.border_width * 2)
-  
+    
   def draw_border(self):
     # Border drawing
     pygame.draw.rect(self.surface, self.border_color, self.rect)
     pygame.draw.rect(self.surface, self.bgcolor, self.inner_rect)
-    
+  
+
 class InfoBox(BaseBox):
   #The stats of the current player along the bottom of the screen
   def draw(self, text):
@@ -136,7 +144,6 @@ class InfoBox(BaseBox):
         line_sf = self.font.render(line, True, self.font_color, self.bgcolor)
         
         if (line_sf.get_width() + x_pos > self.rect.right or line_sf.get_height() + y_pos > self.rect.bottom):
-            print 'Cannot fit line "%s" in InfoBox, moving to the right' % line
             x_pos += 200
             y_pos = self.inner_rect.top
         
@@ -144,13 +151,61 @@ class InfoBox(BaseBox):
         y_pos += line_sf.get_height()
   
 
-class ButtonBox(BaseBox):
+class OptionsBox(BaseBox):
   #The options for the player along the right of the screen
-  def draw(self, text):
+  def draw(self):
     # Border drawing
     self.draw_border()
         
-    x_pos = self.text_rect.left
-    y_pos = self.text_rect.top
+    x_pos = self.inner_rect.left
+    y_pos = self.inner_rect.top
     
     #Make buttons
+    buttons = []
+    move_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="Move Player",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    buttons.append(move_button)
+    y_pos += self.inner_rect.height*.1
+    work_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="Work At Job",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    buttons.append(work_button)
+    y_pos += self.inner_rect.height*.1
+    buy_item_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="Buy Item",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    buttons.append(buy_item_button)
+    
+    for button in buttons:
+      button.draw()
+  
+
+class MapBox(BaseBox):
+  #The Map in the upper left
+  def draw(self, map):
+    # Border drawing
+    self.draw_border()
+        
+    x_pos = self.inner_rect.left
+    y_pos = self.inner_rect.top
+    
+    #Draw the map
+    for row in map.grid:
+      s = ''
+      for point in row:
+        s += " %s " % str(point) if point else " - "
+      line_sf = self.font.render(s, True, self.font_color, self.bgcolor)
+      self.surface.blit(line_sf, (x_pos, y_pos))
+      y_pos += line_sf.get_height()
+  
+
+class ButtonBox(BaseBox):
+  #Individual options button
+  def draw(self):
+    self.draw_border()
+    
+    line_sf = self.font.render(self.text, True, self.font_color, self.bgcolor)
+    x_pos = self.inner_rect.centerx - (line_sf.get_width()/2)
+    y_pos = self.inner_rect.centery - (line_sf.get_height()/2)
+    self.surface.blit(line_sf, (x_pos, y_pos))
