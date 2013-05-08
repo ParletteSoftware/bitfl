@@ -52,8 +52,7 @@ class Gui:
     self.background.fill(Color('black'))
     
     self.infobox = InfoBox(self.screen, Rect(0, self.screen.get_height()*.9, self.screen.get_width(), 
-                          self.screen.get_height()*.1), border_width=2, 
-                          border_color=Color('yellow'), font=('verdana', 16))
+                          self.screen.get_height()*.1), border_width=2, border_color=Color('yellow'), font=('verdana', 16))
     
     #A - Action (broke this down into ALTER steps)
   
@@ -93,8 +92,8 @@ class Gui:
   
   
 
-class InfoBox:
-  #The stats of the current player along the bottom of the screen
+class BaseBox:
+  #Base class for any box on the screen, this probably shouldn't ever be directly called
   def __init__(self, surface, rect, font=('arial', 20), font_color=Color('white'),
                bgcolor=Color('gray25'), border_width=0, border_color=Color('black')):
     """ rect: The (outer) rectangle defining the location and size of the box on the surface.
@@ -109,26 +108,28 @@ class InfoBox:
     """
     self.surface = surface
     self.rect = rect
-    #self.text = text
     self.bgcolor = bgcolor
     self.font = pygame.font.SysFont(*font)
     self.font_color = font_color
     self.border_width = border_width
     self.border_color = border_color
     # Internal drawing rectangle of the box 
-    self.text_rect = Rect(self.rect.left + self.border_width, self.rect.top + self.border_width,
+    self.inner_rect = Rect(self.rect.left + self.border_width, self.rect.top + self.border_width,
         self.rect.width - self.border_width * 2, self.rect.height - self.border_width * 2)
   
-  def new_text(self, text):
-    self.text = text
-  
-  def draw(self, text):
+  def draw_border(self):
     # Border drawing
     pygame.draw.rect(self.surface, self.border_color, self.rect)
-    pygame.draw.rect(self.surface, self.bgcolor, self.text_rect)
+    pygame.draw.rect(self.surface, self.bgcolor, self.inner_rect)
+    
+class InfoBox(BaseBox):
+  #The stats of the current player along the bottom of the screen
+  def draw(self, text):
+    # Border drawing
+    self.draw_border()
         
-    x_pos = self.text_rect.left
-    y_pos = self.text_rect.top 
+    x_pos = self.inner_rect.left
+    y_pos = self.inner_rect.top 
     
     # Render all the lines of text one below the other
     for line in text:
@@ -137,7 +138,19 @@ class InfoBox:
         if (line_sf.get_width() + x_pos > self.rect.right or line_sf.get_height() + y_pos > self.rect.bottom):
             print 'Cannot fit line "%s" in InfoBox, moving to the right' % line
             x_pos += 200
-            y_pos = self.text_rect.top
+            y_pos = self.inner_rect.top
         
         self.surface.blit(line_sf, (x_pos, y_pos))
         y_pos += line_sf.get_height()
+  
+
+class ButtonBox(BaseBox):
+  #The options for the player along the right of the screen
+  def draw(self, text):
+    # Border drawing
+    self.draw_border()
+        
+    x_pos = self.text_rect.left
+    y_pos = self.text_rect.top
+    
+    #Make buttons
