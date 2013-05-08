@@ -72,12 +72,9 @@ class Player:
   def use_item(self,item):
     """Consume the item, applying its effects on this player instance."""
     if item in self.items:
-      for effect in item.effects:
-        if effect in self.attributes:
-          self.attributes[effect] += item.effects[effect]
-          #Set the value to 0 if it just went below 0
-          if self.attributes[effect] < 0:
-            self.attributes[effect] = 0
+      for attribute in item.effects:
+        if attribute in self.attributes:
+          self.attributes[effect].set(delta=item.effects[attribute])
       self.items.remove(item)
 
 class Attribute:
@@ -116,7 +113,6 @@ class Happiness(Attribute):
   def __init__(self,value=0):
     super(Happiness,self).__init__("Happiness",value)
   
-  #TODO: how can I pass these values in without explicitly passing them?
   def calculate(self):
     pass
 
