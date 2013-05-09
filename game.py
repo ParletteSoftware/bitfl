@@ -65,7 +65,7 @@ class Game:
       if not self.debug:
         os.system('cls' if os.name=='nt' else 'clear')
       if selection == 'q':
-        quit_completely, quit_to_main_menu = QuitMenu().display()
+        quit_completely, quit_to_main_menu = QuitMenu(options={'m':'Return to the Main Menu','q':'Quit BITFL completely'}).display()
         self.log_debug("Results from QuitMenu was"+str(quit_completely)+str(quit_to_main_menu))
         if quit_completely:
           return self.started, quit_completely
@@ -119,7 +119,7 @@ class Game:
           if not self.debug:
             os.system('cls' if os.name=='nt' else 'clear')
           if selection == 'q':
-            quit_completely, quit_to_main_menu = QuitMenu().display()
+            quit_completely, quit_to_main_menu = QuitMenu(options={'m':'Return to the Main Menu','q':'Quit BITFL completely'}).display()
             print quit_completely, quit_to_main_menu
             if quit_completely:
               return True

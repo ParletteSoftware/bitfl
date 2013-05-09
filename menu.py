@@ -186,10 +186,10 @@ class ListMenu(Menu):
     return self.options[super(ListMenu,self).display(sort=False)]
 
 class QuitMenu(Menu):
-  def __init__(self):
+  def __init__(self, options={'q':'Quit BITFL completely'}):
     Menu.__init__(self)
     self.title = "Quit Menu"
-    self.options = {'m':'Return to the Main Menu','q':'Quit BITFL completely'}
+    self.options = options
     self.allow_cancel = True
   
   def display(self):
