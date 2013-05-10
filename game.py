@@ -215,7 +215,7 @@ class Game:
         if parameters:
           if set(['player']).issubset(parameters):
             player = parameters['player']
-            player.money += player.job.pay
+            player.attributes['money'].set(delta=player.job.pay)
             print "You've earned $%s" % (player.job.pay)
             self.time_left -= time_cost
       else:
@@ -244,7 +244,7 @@ class Game:
                   player.knowledge += course.knowledge_value
                   player.completed_education.append(course.name)
                   self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
-                  player.money -= course.cost
+                  player.attributes['money'].set(delta=-course.cost)
                   self.time_left -= time_cost
                 else:
                   print "You don't have enough money to enroll in this course!"
@@ -261,10 +261,10 @@ class Game:
           item = parameters['item']
           player = parameters['player']
           if item in player.location.items:
-            if player.money >= item.cost:
+            if player.attributes['money'].get() >= item.cost:
               player.add_item(player.location.get_item(id=item.id,delete=True))
               self.log_debug("Moved item (%s) from location (%s) to player (%s)" % (item,player,player.location))
-              player.money -= item.cost
+              player.attributes['money'].set(delta=-item.cost)
             else:
               print "You don't have enough money for this item"
           else:

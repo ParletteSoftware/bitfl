@@ -75,7 +75,7 @@ class Player:
     if item in self.items:
       for attribute in item.effects:
         if attribute in self.attributes:
-          self.attributes[effect].set(delta=item.effects[attribute])
+          self.attributes[attribute].set(delta=item.effects[attribute])
       self.items.remove(item)
 
 class Attribute:
@@ -86,9 +86,9 @@ class Attribute:
     self.minor_attributes = None
   
   def __repr__(self):
-    return str(self.name)
+    return str(self.get())
   
-  def set(value = 0, delta = 0):
+  def set(self,value = 0, delta = 0):
     """Change the value of this attribute.
     If value is provided, then the attriute value is set to this number.
     Otherwise, if delta is provided, the attribute value will add this to its current value.
