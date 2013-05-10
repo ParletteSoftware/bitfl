@@ -28,7 +28,7 @@ class Player:
     self.completed_education = []
     self.items = []
     #Major Attributes
-    self.attributes = {"health": Health(),
+    self.attributes = {"health": Health(10),
                        "knowledge": Knowledge(),
                        "happiness": Happiness(),
                        "money": Money()}
@@ -58,6 +58,7 @@ class Player:
     
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
     s += "Happiness:\t%s\n" % (str(self.attributes['happiness'].get()))
+    return s
   
   def get_happiness(self):
     """Set the happiness instance variable calculated by the player's attributes and return it.
@@ -100,7 +101,7 @@ class Attribute:
     else:
       return
   
-  def get():
+  def get(self):
     """Return the calculated value for this attribute."""
     self.calculate()
     return self.value
@@ -111,28 +112,32 @@ class Attribute:
   
 class Happiness(Attribute):
   def __init__(self,value=0):
-    super(Happiness,self).__init__("Happiness",value)
+    #super(Happiness,self).__init__("Happiness",value)
+    Attribute.__init__(self,"Happiness",value)
   
   def calculate(self):
     pass
 
 class Health(Attribute):
   def __init__(self,value=0):
-    super(Health,self).__init__("Health",value)
+    #super(Health,self).__init__("Health",value)
+    Attribute.__init__(self,"Health",value)
   
   def calculate(self):
     pass
 
 class Knowledge(Attribute):
   def __init__(self,value=0):
-    super(Knowledge,self).__init__("Knowledge",value)
+    #super(Knowledge,self).__init__("Knowledge",value)
+    Attribute.__init__(self,"Knowledge",value)
   
   def calculate(self):
     pass
   
 class Money(Attribute):
   def __init__(self,value=0):
-    super(Money,self).__init__("Money",value)
+    #super(Money,self).__init__("Money",value)
+    Attribute.__init__(self,"Money",value)
   
   def calculate(self):
     pass
