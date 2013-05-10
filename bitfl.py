@@ -27,45 +27,49 @@ version = None
 with open('version_history.txt', 'r') as f:
   version = f.readline()[:-1]
 
+def clear_screen():
+  """Clear the screen, use cls if Windows or clear if Linux"""
+  if not args.debug:
+    os.system('cls' if os.name=='nt' else 'clear')
+
 parser = argparse.ArgumentParser(description='Process command line options.')
 parser.add_argument('--debug', action='store_true', help='Turn on debug logging')
 parser.add_argument('--version', action='version', version='Billy in the Fat Lane v'+version)
 parser.add_argument('--gui', action='store_true', help='Enable the Pygame GUI')
+parser.add_argument('--cli', action='store_true', help='Enable the Command Line Interface')
 args = parser.parse_args()
 
 if args.gui:
-  gui=Gui()
-  gui.run()
+  main_menu = Gui()
+elif args.cli:
+  main_menu = MainMenu()
 else:
-  #Run the text-based menus
-  done = False
+  #Default to CLI, but this else block is here so we can present a choice if they didn't pick
   main_menu = MainMenu()
 
-  while not done:
-    """Clear the screen, use cls if Windows or clear if Linux"""
-    if not args.debug:
-      os.system('cls' if os.name=='nt' else 'clear')
-    print "Welcome to Billy in the Fat Lane v"+version+"\n"
-    selection = main_menu.display().lower()
-    """Clear the screen, use cls if Windows or clear if Linux"""
-    if not args.debug:
-      os.system('cls' if os.name=='nt' else 'clear')
-    if selection == 'q':
-      done = True
-    if selection == 'n':
-      print "Loading maps..."
-      map_list = []
-      if os.path.exists("maps"):
-        maps_dir = os.path.join(os.path.dirname(__file__),"maps")
-        for map_dir in [name for name in os.listdir(maps_dir) if os.path.isdir(os.path.join(maps_dir, name))]:
-          map_list.append(Map(os.path.join(maps_dir,map_dir),debug=args.debug))
-          print "loaded %s" % (map_list[-1].title)
-      if len(map_list):
-        print "...done"
-        print "Starting new game..."
-        if len(map_list) == 1:
-          game = Game(map_list[0], debug=args.debug)
-        if game.start():
-          game.run()
-      else:
-        print "...no maps found"
+done = False
+while not done:
+  clear_screen()
+  #print "Welcome to Billy in the Fat Lane v"+version+"\n"
+  main_menu.welcome_message(version)
+  selection = main_menu.display().lower()
+  clear_screen()
+  if selection == 'q':
+    done = True
+  if selection == 'n':
+    print "Loading maps..."
+    map_list = []
+    if os.path.exists("maps"):
+      maps_dir = os.path.join(os.path.dirname(__file__),"maps")
+      for map_dir in [name for name in os.listdir(maps_dir) if os.path.isdir(os.path.join(maps_dir, name))]:
+        map_list.append(Map(os.path.join(maps_dir,map_dir),debug=args.debug))
+        print "loaded %s" % (map_list[-1].title)
+    if len(map_list):
+      print "...done"
+      print "Starting new game..."
+      if len(map_list) == 1:
+        game = Game(map_list[0], debug=args.debug)
+      if game.start():
+        game.run()
+    else:
+      print "...no maps found"

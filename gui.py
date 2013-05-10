@@ -41,6 +41,9 @@ class Gui:
   def __init__(self):
     #I - Import and Initialize
     pygame.init()
+    self.version = None
+    with open('version_history.txt', 'r') as f:
+      self.version = f.readline()[:-1]
     
     #D - Display configuration
     self.screen = pygame.display.set_mode((1024,768))
@@ -58,8 +61,63 @@ class Gui:
                                font=('verdana', 16))
     self.mapbox = MapBox(self.screen, Rect(0, 0, self.screen.get_width()*.9, self.screen.get_height()*.9), 
                          border_width=2, border_color=Color('green'), font=('verdana', 16))
+    
     #A - Action (broke this down into ALTER steps)
+    # Bring up window with background drawn
+    self.screen.blit(self.background, (0,0))
+    pygame.display.flip()
+    
   
+  def welcome_message(self, version):
+    line = "Welcome to Billy in the Fat Lane v"+version+"\n"
+    font = pygame.font.SysFont(*('verdana', 16))
+    font_color = Color('white')
+    bgcolor = Color('black')
+    line_sf = font.render(line, True, font_color, bgcolor)
+    
+    x_pos = self.screen.get_width()/2 - line_sf.get_width()/2
+    y_pos = self.screen.get_height()*.1
+    self.screen.blit(line_sf, (x_pos, y_pos))
+    #Should there be a pygame.display.flip() here?
+  
+  def display(self):
+    self.mainmenubox = MainMenuBox(self.screen, Rect(self.screen.get_width()*.3, self.screen.get_height()*.3,
+                                  self.screen.get_width()*.4, self.screen.get_height()*.4), 
+                                  border_width=2, border_color=Color('green'), font=('verdana', 16))
+    ##A - Assign values to key variables
+    clock = pygame.time.Clock()
+    keepGoing = True
+    ##L - Main Loop
+    while keepGoing:
+    	##T - Timer to set frame rate
+    	clock.tick(30)
+	    
+    	##E - Event handling
+    	for event in pygame.event.get():
+    		if event.type == pygame.QUIT:
+    			keepGoing = False
+    		elif event.type == pygame.KEYDOWN:
+    		  if event.key == pygame.K_ESCAPE:
+    		    keepGoing = False
+    		  elif event.key == pygame.K_q:
+    		    return 'q'
+    		  elif event.key == pygame.K_n:
+    		    return 'n'
+    		elif event.type == pygame.MOUSEBUTTONDOWN:
+    		  current_position = pygame.mouse.get_pos()
+    		  if self.mainmenubox.new_game_button.inner_rect.collidepoint(current_position):
+    		    return 'n'
+    		  elif self.mainmenubox.quit_button.inner_rect.collidepoint(current_position):
+    		    return 'q'
+	    
+    	##R - Refresh display
+    	self.screen.blit(self.background, (0,0))
+    	self.welcome_message(self.version)
+    	self.mainmenubox.draw()
+    	pygame.display.flip()
+    
+    #end of main game loop
+    
   def run(self):
     ##A - Assign values to key variables
     clock = pygame.time.Clock()
@@ -209,3 +267,28 @@ class ButtonBox(BaseBox):
     x_pos = self.inner_rect.centerx - (line_sf.get_width()/2)
     y_pos = self.inner_rect.centery - (line_sf.get_height()/2)
     self.surface.blit(line_sf, (x_pos, y_pos))
+  
+
+class MainMenuBox(BaseBox):
+  #Choices presented at the main menu, currently New Game and Quit
+  def draw(self):
+    self.draw_border()
+    
+    x_pos = self.inner_rect.left
+    y_pos = self.inner_rect.top
+    
+    #Make buttons
+    self.buttons = []
+    self.new_game_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="(N)ew Game",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    self.buttons.append(self.new_game_button)
+    y_pos += self.inner_rect.height*.1
+    self.quit_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="(Q)uit Game",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    self.buttons.append(self.quit_button)
+    for button in self.buttons:
+      button.draw()
+    
+    

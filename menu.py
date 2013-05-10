@@ -69,6 +69,10 @@ class MainMenu(Menu):
     self.title = "Main Menu"
     self.options = {'n':'New Game','q':'Quit'}
   
+  def welcome_message(self, version):
+    #Used at the very start of the program
+    print "Welcome to Billy in the Fat Lane v"+version+"\n"
+  
 class NewGameMenu(Menu):
   def __init__(self):
     Menu.__init__(self)
