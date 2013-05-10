@@ -239,11 +239,11 @@ class Game:
               time_cost = course.time
               if self.time_left >= abs(time_cost):
                 #Check if the player has enough money to pay for the course
-                if player.money >= abs(course.cost):
+                if player.attributes['money'].get() >= abs(course.cost):
                   self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
-                  player.knowledge += course.knowledge_value
+                  player.attributes['knowledge'].set(delta=course.knowledge_value)
                   player.completed_education.append(course.name)
-                  self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
+                  self.log_debug("Player %s now has knowledge %s" % (player,player.attributes['knowledge'].get()))
                   player.attributes['money'].set(delta=course.cost)
                   self.time_left -= time_cost
                 else:

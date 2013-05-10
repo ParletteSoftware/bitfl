@@ -135,7 +135,7 @@ class CourseMenu(Menu):
     for c in course_list:
       #Check if the player has the knowledge required, class required, or has already taken the course
       player_can_take_course = True
-      if player.knowledge < c.knowledge_required:
+      if player.attributes['knowledge'].get() < c.knowledge_required:
         player_can_take_course = False
       if c.course_required:
         if c.course_required not in player.completed_education:
