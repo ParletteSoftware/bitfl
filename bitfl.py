@@ -21,7 +21,7 @@ from game import Game
 from map import Map
 import os
 import argparse
-from gui import Gui
+from gui import Gui, GuiMainMenu
 
 version = None
 with open('version_history.txt', 'r') as f:
@@ -40,7 +40,7 @@ parser.add_argument('--cli', action='store_true', help='Enable the Command Line 
 args = parser.parse_args()
 
 if args.gui:
-  main_menu = Gui()
+  main_menu = GuiMainMenu()
 elif args.cli:
   main_menu = MainMenu()
 else:
@@ -68,7 +68,7 @@ while not done:
       print "...done"
       print "Starting new game..."
       if len(map_list) == 1:
-        game = Game(map_list[0], debug=args.debug)
+        game = Game(map_list[0], debug=args.debug, gui=args.gui)
       if game.start():
         game.run()
     else:

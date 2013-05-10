@@ -68,6 +68,7 @@ class Gui:
     pygame.display.flip()
     
   
+class GuiMainMenu(Gui):
   def welcome_message(self, version):
     line = "Welcome to Billy in the Fat Lane v"+version+"\n"
     font = pygame.font.SysFont(*('verdana', 16))
