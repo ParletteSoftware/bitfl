@@ -125,7 +125,7 @@
           "title": "Basic math",
           "symbol": 1,
           "knowledge_value": 1,
-          "time": 1,
+          "time": -1,
           "knowledge_required": 0,
           "cost": -10
         },
@@ -133,7 +133,7 @@
           "title": "Basic reading",
           "symbol": 2,
           "knowledge_value": 1,
-          "time": 1,
+          "time": -1,
           "knowledge_required": 0,
           "cost": -10
         },
@@ -141,7 +141,7 @@
           "title": "Basic writing",
           "symbol": 3,
           "knowledge_value": 1,
-          "time": 1,
+          "time": -1,
           "knowledge_required": 0,
           "cost": -10
         },
@@ -149,7 +149,7 @@
           "title": "Advanced math",
           "symbol": 4,
           "knowledge_value": 2,
-          "time": 2,
+          "time": -2,
           "knowledge_required": 2,
           "course_required": "Basic math",
           "cost": -20
