@@ -54,11 +54,11 @@ class Player:
       s += "Job:\t\t%s at %s ($%s pay per unit)\n" % (str(self.job),str(self.job.location.name),str(self.job.pay))
     else:
       s += "Job:\t\tNone\n"
+    for attribute in self.attributes:
+      s += "%s:\t%s\n" % (str(self.attributes[attribute]),self.attributes[attribute].get())
     s += "Current money:\t$%s\n" % (str(self.attributes['money'].get()))
-    s += "Knowledge:\t%s\nClasses:\n\t%s\n" % (str(self.attributes['knowledge'].get()),"\n\t".join(self.completed_education) if self.completed_education else "None")
-    
+    s += "Classes:\n\t%s\n" % ("\n\t".join(self.completed_education) if self.completed_education else "None")
     s += "Items:\n\t%s\n" % ("\n\t".join(str(x) for x in self.items) if self.items else "None")
-    s += "Happiness:\t%s\n" % (str(self.attributes['happiness'].get()))
     return s
   
   def get_happiness(self):
