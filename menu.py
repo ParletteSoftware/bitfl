@@ -144,7 +144,7 @@ class CourseMenu(Menu):
         player_can_take_course = False
       #Add course as an option if player is qualified and hasn't already taken it
       if player_can_take_course:
-        self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(c.time),str(c.knowledge_value),str(c.cost))
+        self.options[str(c.symbol)] = "%s - %s time spent - %s knowledge gained - $%s to enroll" % (c.name,str(abs(c.time)),str(c.knowledge_value),str(abs(c.cost)))
     self.allow_cancel = True
     
     return super(CourseMenu,self).display(sort=True)
@@ -159,7 +159,7 @@ class BuyMenu(Menu):
     if item_list:
       for i in item_list:
         #We use a string representation of the index of each item
-        self.options[str(item_list.index(i))] = "%s ($%s)" % (i.name,str(i.cost))
+        self.options[str(item_list.index(i))] = "%s ($%s)" % (i.name,str(abs(i.cost)))
       self.allow_cancel = True
     
     selection = super(BuyMenu,self).display(sort=True)
