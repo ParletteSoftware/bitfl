@@ -78,7 +78,7 @@ class Player:
           self.attributes[attribute].set(delta=item.effects[attribute])
       self.items.remove(item)
 
-class Attribute:
+class Attribute(object):
   def __init__(self,name="Attribute",value=0):
     self.name = name
     self.id = uuid4()
@@ -112,33 +112,33 @@ class Attribute:
   
 class Happiness(Attribute):
   def __init__(self,value=0):
-    #super(Happiness,self).__init__("Happiness",value)
-    Attribute.__init__(self,"Happiness",value)
+    super(Happiness,self).__init__("Happiness",value)
+    #Attribute.__init__(self,"Happiness",value)
   
   def calculate(self):
     pass
 
 class Health(Attribute):
   def __init__(self,value=0):
-    #super(Health,self).__init__("Health",value)
-    Attribute.__init__(self,"Health",value)
+    super(Health,self).__init__("Health",value)
+    #Attribute.__init__(self,"Health",value)
   
   def calculate(self):
     pass
 
 class Knowledge(Attribute):
   def __init__(self,value=0):
-    #super(Knowledge,self).__init__("Knowledge",value)
-    Attribute.__init__(self,"Knowledge",value)
+    super(Knowledge,self).__init__("Knowledge",value)
+    #Attribute.__init__(self,"Knowledge",value)
   
   def calculate(self):
     pass
   
 class Money(Attribute):
   def __init__(self,value=0):
-    #super(Money,self).__init__("Money",value)
-    Attribute.__init__(self,"Money",value)
+    super(Money,self).__init__("Money",value)
+    #Attribute.__init__(self,"Money",value)
   
   def calculate(self):
     pass
-  
+
