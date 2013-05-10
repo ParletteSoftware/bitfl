@@ -237,14 +237,14 @@ class Game:
             if course:
               #Each class has a time attribute for how long that class takes
               time_cost = course.time
-              if self.time_left >= time_cost:
+              if self.time_left >= abs(time_cost):
                 #Check if the player has enough money to pay for the course
-                if player.money >= course.cost:
+                if player.money >= abs(course.cost):
                   self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
                   player.knowledge += course.knowledge_value
                   player.completed_education.append(course.name)
                   self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
-                  player.attributes['money'].set(delta=-course.cost)
+                  player.attributes['money'].set(delta=course.cost)
                   self.time_left -= time_cost
                 else:
                   print "You don't have enough money to enroll in this course!"
@@ -261,10 +261,10 @@ class Game:
           item = parameters['item']
           player = parameters['player']
           if item in player.location.items:
-            if player.attributes['money'].get() >= item.cost:
+            if player.attributes['money'].get() >= abs(item.cost):
               player.add_item(player.location.get_item(id=item.id,delete=True))
               self.log_debug("Moved item (%s) from location (%s) to player (%s)" % (item,player,player.location))
-              player.attributes['money'].set(delta=-item.cost)
+              player.attributes['money'].set(delta=item.cost)
             else:
               print "You don't have enough money for this item"
           else:
