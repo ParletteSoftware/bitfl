@@ -31,7 +31,8 @@ class Player:
     self.attributes = {"health": Health(10),
                        "knowledge": Knowledge(),
                        "happiness": Happiness(),
-                       "money": Money()}
+                       "money": Money(),
+                       "time": Time(10)}
   
   def __repr__(self):
     return str(self.name)
@@ -86,7 +87,7 @@ class Attribute(object):
     self.minor_attributes = None
   
   def __repr__(self):
-    return str(self.get())
+    return str(self.name)
   
   def set(self,value = 0, delta = 0):
     """Change the value of this attribute.
@@ -142,3 +143,9 @@ class Money(Attribute):
   def calculate(self):
     pass
 
+class Time(Attribute):
+  def __init__(self,value=0):
+    super(Time,self).__init__("Time",value)
+  
+  def calculate(self):
+    pass
