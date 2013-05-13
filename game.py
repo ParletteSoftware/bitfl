@@ -37,8 +37,6 @@ class Game:
     self.map = map if map else Map()
     #Turn Counter
     self.turn = 0
-    #Time left in this turn for this player
-    self.time_left = 10
   
   def log_debug(self,message):
     if self.debug:
@@ -113,7 +111,7 @@ class Game:
           if len(player.items):
             menu.add_option('u','Use Item')
             
-          selection = menu.display(self.turn,player,self.time_left)
+          selection = menu.display(self.turn,player,player.attributes['time'].get())
           
           """Clear the screen, use cls if Windows or clear if Linux"""
           if not self.debug:
@@ -126,7 +124,7 @@ class Game:
             if quit_to_main_menu:
               return False
           if selection == 'e':
-            self.time_left = 10
+            player.attributes['time'].set(value=10)
             turn_done = True
           if selection == 'm':
             self.command("move",{'player':player,'location_symbol':move_menu.display(self.map)})
@@ -177,61 +175,70 @@ class Game:
     if command is "move":
       #Move Player
       #We're going to start with each movement costing 1 hour, this will likely change
-      time_cost = 1
-      #Check to see if they have enough time to move
-      if self.time_left >= time_cost:
-        #Verify Parameters
-        if parameters:
-          if set(['player','location_symbol']).issubset(parameters):
+      time_cost = -1
+      #Verify Parameters
+      if parameters:
+        if set(['player','location_symbol']).issubset(parameters):
+          #Check to see if they have enough time to move
+          if parameters['player'].attributes['time'].get() >= abs(time_cost):
             #User may have cancelled on MoveMenu, so make sure a location was passed
             if parameters['location_symbol'] != "":
               location = self.get_location(parameters['location_symbol'])
               self.log_debug("Moving %s to %s" % (parameters['player'],location.name))
               parameters['player'].move(location)
-              self.time_left -= time_cost
+              parameters['player'].attributes['time'].set(delta=time_cost)
           else:
-            self.log_error("Invalid parameters for move command")
+            print "No time is left to move!"
+        else:
+          self.log_error("Invalid parameters for move command")
       else:
-        print "No time is left to move!"
+        self.log_error("Inavlid parameters for apply command")
       return False
     
     if command is "job_apply":
       #Apply for a job
       #Each job application will cost 1 hour to start
-      time_cost = 1
-      #Check to see if they have enough time to apply for this job
-      if self.time_left >= time_cost:
-        #Verify Parameters
-        if parameters:
-          if set(['player','job_rank']).issubset(parameters):
+      time_cost = -1
+      #Verify Parameters
+      if parameters:
+        if set(['player','job_rank']).issubset(parameters):
+          player = parameters['player']
+          #Check to see if they have enough time to apply for this job
+          if player.attributes['time'].get() >= abs(time_cost):
             if parameters['job_rank'] != '':
-              player = parameters['player']
               self.log_debug("Looking up job (rank %s) in %s" % (parameters['job_rank'],player.location.name))
               job = player.location.get_job_by_rank(parameters['job_rank'])
               if job:
                 self.log_debug("Player %s applying for %s at %s" % (player,job.name,player.location.name))
                 player.job = job
-                self.time_left -= time_cost
+                player.attributes['time'].set(delta=time_cost)
               else:
                 self.log_error("Job (rank %s) not found in %s" % (parameters['job_rank'],player.location.name))
           else:
-            self.log_error("Inavlid parameters for apply command")
+            print "No time is left to apply for this job!"
+        else:
+          self.log_error("Inavlid parameters for apply command")  
       else:
-        print "No time is left to apply for this job!"
+        self.log_error("Inavlid parameters for apply command")
+      
     
     if command is "job_work":
       #Work at the players job
       #Currently working takes 1 hour
-      time_cost = 1
-      if self.time_left >= time_cost:
-        if parameters:
-          if set(['player']).issubset(parameters):
-            player = parameters['player']
-            player.money += player.job.pay
+      time_cost = -1
+      if parameters:
+        if set(['player']).issubset(parameters):
+          player = parameters['player']
+          if player.attributes['time'].get() >= abs(time_cost):
+            player.attributes['money'].set(delta=player.job.pay)
             print "You've earned $%s" % (player.job.pay)
-            self.time_left -= time_cost
+            player.attributes['time'].set(delta=time_cost)
+          else:
+            print "No time is left for work!"
+        else:
+          self.log_error("Inavlid parameters for work command")
       else:
-        print "No time is left for work!"
+        self.log_error("Inavlid parameters for work command")
     
     if command is "end":
       #End Turn
@@ -249,15 +256,15 @@ class Game:
             if course:
               #Each class has a time attribute for how long that class takes
               time_cost = course.time
-              if self.time_left >= time_cost:
+              if player.attributes['time'].get() >= abs(time_cost):
                 #Check if the player has enough money to pay for the course
-                if player.money >= course.cost:
+                if player.attributes['money'].get() >= abs(course.cost):
                   self.log_debug("Player %s taking course %s at %s" % (player,course.name,player.location.name))
-                  player.knowledge += course.knowledge_value
+                  player.attributes['knowledge'].set(delta=course.knowledge_value)
                   player.completed_education.append(course.name)
-                  self.log_debug("Player %s now has knowledge %s" % (player,player.knowledge))
-                  player.money -= course.cost
-                  self.time_left -= time_cost
+                  self.log_debug("Player %s now has knowledge %s" % (player,player.attributes['knowledge'].get()))
+                  player.attributes['money'].set(delta=course.cost)
+                  player.attributes['time'].set(delta=time_cost)
                 else:
                   print "You don't have enough money to enroll in this course!"
               else:
@@ -273,10 +280,10 @@ class Game:
           item = parameters['item']
           player = parameters['player']
           if item in player.location.items:
-            if player.money >= item.cost:
+            if player.attributes['money'].get() >= abs(item.cost):
               player.add_item(player.location.get_item(id=item.id,delete=True))
               self.log_debug("Moved item (%s) from location (%s) to player (%s)" % (item,player,player.location))
-              player.money -= item.cost
+              player.attributes['money'].set(delta=item.cost)
             else:
               print "You don't have enough money for this item"
           else:
@@ -297,7 +304,7 @@ class Game:
           #use the item
           self.log_debug("Consuming item (%s) with effects %s" % (str(item),str(item.effects)))
           player.use_item(item)
-          self.log_debug("Player attributes are now %s" % (str(player.attributes)))
+          self.log_debug("Player attributes are now {%s}" % (", ".join(["%s: %s" % (key,player.attributes[key].get()) for (key,value) in player.attributes.items()])))
         else:
           self.log_error("This item (%s) does not belong to this player (%s)" % (str(item),str(player)))
     
