@@ -185,6 +185,24 @@ class ListMenu(Menu):
     """Return the object from the list rather than the index of that item."""
     return self.options[super(ListMenu,self).display(sort=False)]
 
+class QuitMenu(Menu):
+  def __init__(self, options={'q':'Quit BITFL completely'}):
+    Menu.__init__(self)
+    self.title = "Quit Menu"
+    self.options = options
+    self.allow_cancel = True
+  
+  def display(self):
+    choice = super(QuitMenu, self).display(sort=False)
+    if choice == 'q':
+      return True, True
+    elif choice == 'm':
+      return False, True
+    else:
+      return False, False
+  
+
+
 ## {{{ http://code.activestate.com/recipes/134892/ (r2)
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the screen."""
