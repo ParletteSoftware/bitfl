@@ -156,6 +156,11 @@ class GuiMainMenu(Gui):
     #end of main game loop
   
   
+class GuiNewGameMenu(Gui):
+  def display():
+    
+  
+
 
 class BaseBox:
   #Base class for any box on the screen, this probably shouldn't ever be directly called

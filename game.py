@@ -21,9 +21,10 @@ from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, BuyMenu, L
 from player import Player
 from map import Map
 import os
+from gui import GuiNewGameMenu
 
 class Game:
-  def __init__(self, map = None, debug = False):
+  def __init__(self, map = None, debug = False, gui = False):
     self.id = uuid4()
     self.debug = debug
     #Valid commands this game class will accept
@@ -39,6 +40,8 @@ class Game:
     self.turn = 0
     #Time left in this turn for this player
     self.time_left = 10
+    #Flag for if we're using the GUI or the CLI
+    self.gui = gui
   
   def log_debug(self,message):
     if self.debug:
@@ -55,7 +58,10 @@ class Game:
     return None
   
   def start(self):
-    menu = NewGameMenu()
+    if self.gui:
+      menu = GuiNewGameMenu()
+    else:
+      menu = NewGameMenu()
     
     #Display the menu until the user quits or starts the game
     while True:
