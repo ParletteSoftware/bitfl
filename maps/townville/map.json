@@ -63,10 +63,10 @@
       "items":
       [
         {
-          "title": "Hot New Book",
+          "title": "You are a placeholder for a real person (and how to fix it)",
           "availability": 100,
-          "cost": 5,
-          "effects": [{"attribute": "happiness", "value": 1}]
+          "cost": -5,
+          "effects": [{"attribute": "happiness", "value": 2},{"attribute": "time", "value": -2}]
         }
       ]
     },
@@ -125,34 +125,34 @@
           "title": "Basic math",
           "symbol": 1,
           "knowledge_value": 1,
-          "time": 1,
+          "time": -1,
           "knowledge_required": 0,
-          "cost": 10
+          "cost": -10
         },
         {
           "title": "Basic reading",
           "symbol": 2,
           "knowledge_value": 1,
-          "time": 1,
+          "time": -1,
           "knowledge_required": 0,
-          "cost": 10
+          "cost": -10
         },
         {
           "title": "Basic writing",
           "symbol": 3,
           "knowledge_value": 1,
-          "time": 1,
+          "time": -1,
           "knowledge_required": 0,
-          "cost": 10
+          "cost": -10
         },
         {
           "title": "Advanced math",
           "symbol": 4,
           "knowledge_value": 2,
-          "time": 2,
+          "time": -2,
           "knowledge_required": 2,
           "course_required": "Basic math",
-          "cost": 20
+          "cost": -20
         }
       ]
     },
@@ -182,14 +182,14 @@
         {
           "title": "Hamburger Meal",
           "availability": 100,
-          "cost": 5,
-          "effects": [{"attribute": "hunger", "value": -2},{"attribute": "fatness", "value": 0.5}]
+          "cost": -5,
+          "effects": [{"attribute": "health", "value": 1}]
         },
         {
           "title": "Fries",
           "availability": 100,
-          "cost": 3,
-          "effects": [{"attribute": "hunger", "value": -1},{"attribute": "fatness", "value": 0.3}]
+          "cost": -3,
+          "effects": [{"attribute": "health", "value": 1}]
         }
       ]
     },
