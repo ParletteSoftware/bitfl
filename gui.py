@@ -82,12 +82,13 @@ class GuiMainMenu(Gui):
     #Should there be a pygame.display.flip() here?
   
   def display(self):
-    self.mainmenubox = MainMenuBox(self.screen, Rect(self.screen.get_width()*.3, self.screen.get_height()*.3,
+    self.mainmenubox = OptionsBox(self.screen, Rect(self.screen.get_width()*.3, self.screen.get_height()*.3,
                                   self.screen.get_width()*.4, self.screen.get_height()*.4), 
                                   border_width=2, border_color=Color('green'), font=('verdana', 16))
     ##A - Assign values to key variables
     clock = pygame.time.Clock()
     keepGoing = True
+    options = [{'text':"(N)ew Game", 'mouse_click_return':'n'}, {'text':"(Q)uit Game", 'mouse_click_return':'q'}]
     ##L - Main Loop
     while keepGoing:
     	##T - Timer to set frame rate
@@ -106,19 +107,18 @@ class GuiMainMenu(Gui):
     		    return 'n'
     		elif event.type == pygame.MOUSEBUTTONDOWN:
     		  current_position = pygame.mouse.get_pos()
-    		  if self.mainmenubox.new_game_button.inner_rect.collidepoint(current_position):
-    		    return 'n'
-    		  elif self.mainmenubox.quit_button.inner_rect.collidepoint(current_position):
-    		    return 'q'
+    		  for button in self.mainmenubox.buttons:
+    		    if button.inner_rect.collidepoint(current_position):
+    		      return button.mouse_click_return
 	    
     	##R - Refresh display
     	self.screen.blit(self.background, (0,0))
     	self.welcome_message(self.version)
-    	self.mainmenubox.draw()
+    	self.mainmenubox.draw(options)
     	pygame.display.flip()
     
     #end of main game loop
-    
+  '''
   def run(self):
     ##A - Assign values to key variables
     clock = pygame.time.Clock()
@@ -154,7 +154,7 @@ class GuiMainMenu(Gui):
     	pygame.display.flip()
     
     #end of main game loop
-  
+  '''
   
 class GuiNewGameMenu(Gui):
   def display():
@@ -165,7 +165,7 @@ class GuiNewGameMenu(Gui):
 class BaseBox:
   #Base class for any box on the screen, this probably shouldn't ever be directly called
   def __init__(self, surface, rect, font=('arial', 20), font_color=Color('white'), text="Text!",
-              bgcolor=Color('gray25'), border_width=0, border_color=Color('black')):
+              bgcolor=Color('gray25'), border_width=0, border_color=Color('black'), mouse_click_return=''):
     """ rect: The (outer) rectangle defining the location and size of the box on the surface.
         bgcolor: The background color
         border_width: Width of the border. If 0, no border is drawn. If > 0, the border 
@@ -175,6 +175,7 @@ class BaseBox:
         text: The initial text of the message board.
         font: The font (a name, size tuple) of the message
         font_color: The font color
+        mouse_click_return: The character that is returned if you click on this box
     """
     self.surface = surface
     self.rect = rect
@@ -187,6 +188,7 @@ class BaseBox:
     # Internal drawing rectangle of the box 
     self.inner_rect = Rect(self.rect.left + self.border_width, self.rect.top + self.border_width,
         self.rect.width - self.border_width * 2, self.rect.height - self.border_width * 2)
+    self.mouse_click_return = mouse_click_return
     
   def draw_border(self):
     # Border drawing
@@ -217,13 +219,25 @@ class InfoBox(BaseBox):
 
 class OptionsBox(BaseBox):
   #The options for the player along the right of the screen
-  def draw(self):
+  def draw(self, options):
     # Border drawing
     self.draw_border()
         
     x_pos = self.inner_rect.left
     y_pos = self.inner_rect.top
+    #TODO: this should all be in __init__, not draw, it should only happen once
+    self.buttons = []
     
+    for option in options:
+      self.buttons.append(ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text=option['text'],
+                         bgcolor=Color('white'), font_color=Color('black'), 
+                         mouse_click_return=option['mouse_click_return'])
+      y_pos += self.inner_rect.height*.1
+    
+    for button in self.buttons:
+      button.draw()
+    '''
     #Make buttons
     buttons = []
     move_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
@@ -243,6 +257,7 @@ class OptionsBox(BaseBox):
     
     for button in buttons:
       button.draw()
+    '''
   
 
 class MapBox(BaseBox):
@@ -296,5 +311,38 @@ class MainMenuBox(BaseBox):
     self.buttons.append(self.quit_button)
     for button in self.buttons:
       button.draw()
+  
+
+class NewGameMenuBox(BaseBox):
+  #Choices presented at the New Game menu, currently Start Game, Add Players, List Players, and Quit
+  def draw(self):
+    self.draw_border()
     
+    x_pos = self.inner_rect.left
+    y_pos = self.inner_rect.top
+    
+    #Make buttons
+    #TODO: Make this less hard-coded
+    self.buttons = []
+    self.start_game_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="(S)tart Game",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    self.buttons.append(self.new_game_button)
+    y_pos += self.inner_rect.height*.1
+    self.add_players_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="(A)dd Players",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    self.buttons.append(self.new_game_button)
+    y_pos += self.inner_rect.height*.1
+    self.list_players_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="(L)ist Players",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    self.buttons.append(self.new_game_button)
+    y_pos += self.inner_rect.height*.1
+    self.quit_button = ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
+                         border_width=2, border_color=Color('gray'), font=('verdana', 12), text="(Q)uit Game",
+                         bgcolor=Color('white'), font_color=Color('black'))
+    self.buttons.append(self.quit_button)
+    for button in self.buttons:
+      button.draw()
     
