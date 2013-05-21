@@ -38,11 +38,17 @@
           "rank": 2
         },
         {
+          "title": "Loan Consultant",
+          "availability": 60,
+          "pay": 8,
+          "rank": 3
+        },
+        {
           "symbol": "m",
           "title": "Manager",
           "availability": 40,
           "pay": 10,
-          "rank": 3
+          "rank": 4
         }
       ]
     },
@@ -169,6 +175,12 @@
           "availability": 40,
           "pay": 11,
           "rank": 3
+        },
+        {
+          "title": "Dean",
+          "availability": 10,
+          "pay": 30,
+          "rank": 4
         }
       ],
       "education":
@@ -232,16 +244,22 @@
       "jobs":
       [
         {
-          "title": "Food Creation Specialist",
-          "availability": 80,
-          "pay": 3,
+          "title": "Bathroom Cleanup Artist",
+          "availability": 100,
+          "pay": 2,
           "rank": 1
         },
         {
-          "title": "Manager",
-          "availability": 40,
-          "pay": 8,
+          "title": "Food Creation Specialist",
+          "availability": 80,
+          "pay": 3,
           "rank": 2
+        },
+        {
+          "title": "Manager",
+          "availability": 50,
+          "pay": 8,
+          "rank": 3
         }
       ],
       "items":
@@ -275,10 +293,16 @@
           "rank": 1
         },
         {
+          "title": "Tailor",
+          "availability": 60,
+          "pay": 8,
+          "rank": 2
+        },
+        {
           "title": "Manager",
           "availability": 40,
           "pay": 9,
-          "rank": 2
+          "rank": 3
         }
       ],
       "items":
