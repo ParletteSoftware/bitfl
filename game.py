@@ -301,10 +301,13 @@ class Game:
         self.log_debug("Player item list (id): %s" % ([x.id for x in player.items]))
         self.log_debug("ID of item: %s" % item.id)
         if item in player.items:
-          #use the item
-          self.log_debug("Consuming item (%s) with effects %s" % (str(item),str(item.effects)))
-          player.use_item(item)
-          self.log_debug("Player attributes are now {%s}" % (", ".join(["%s: %s" % (key,player.attributes[key].get()) for (key,value) in player.attributes.items()])))
+          if "time" in item.effects and player.attributes['time'].get() >= abs(item.effects['time']):
+            #use the item
+            self.log_debug("Consuming item (%s) with effects %s" % (str(item),str(item.effects)))
+            player.use_item(item)
+            self.log_debug("Player attributes are now {%s}" % (", ".join(["%s: %s" % (key,player.attributes[key].get()) for (key,value) in player.attributes.items()])))
+          else:
+            print "Not enough time left to use this item!"
         else:
           self.log_error("This item (%s) does not belong to this player (%s)" % (str(item),str(player)))
     
