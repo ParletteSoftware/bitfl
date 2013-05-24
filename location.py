@@ -19,13 +19,14 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 from uuid import uuid4
 
 class Location:
-  def __init__(self,name = "Location",symbol = "!"):
+  def __init__(self,name = "Location",symbol = "!",start_location = False):
     self.name = name
     self.id = uuid4()
     self.symbol = symbol
     self.jobs = []
     self.courses = []
     self.items = []
+    self.start_location = start_location
   
   def __eq__(self,other):
     return self.id == other.id if hasattr(other,"id") else False

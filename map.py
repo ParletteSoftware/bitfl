@@ -86,8 +86,12 @@ class Map:
       
       #Add locations to the grid
       for location_json in map_conf["locations"]:
+        if "start_location" in location_json and location_json["start_location"]:
+          start_location = True
+        else:
+          start_location = False
         self.log_debug("Processing location JSON %s" % str(location_json))
-        location = Location(name=location_json["title"],symbol=location_json["symbol"])
+        location = Location(name=location_json["title"],symbol=location_json["symbol"],start_location=start_location)
         
         #Parse the jobs for this location
         if "jobs" in location_json:
@@ -160,3 +164,10 @@ class Map:
       self.locations.append(location)
     else:
       self.log_error("There was already something (%s) at map location (%s,%s), so I cannot add %s" % (self.grid[x][y].name,str(x),str(y),location.name))
+  
+  def get_start_location(self):
+    """Return the location marked as start_location."""
+    for location in self.locations:
+      if location.start_location:
+        return location
+    return None

@@ -37,6 +37,9 @@ class Game:
     self.map = map if map else Map()
     #Turn Counter
     self.turn = 0
+    
+    #Save the start location for easier reference
+    self.start_location = self.map.get_start_location()
   
   def log_debug(self,message):
     if self.debug:
@@ -147,9 +150,9 @@ class Game:
   
   def new_turn(self):
     """Create a new turn and add it to the end of the turns list."""
-    if self.turn > 0:
-      #End the current turn
-      pass
+    #Move all players home
+    for player in self.players:
+      player.location = self.start_location
     
     #Advance the turn counter
     self.turn += 1
