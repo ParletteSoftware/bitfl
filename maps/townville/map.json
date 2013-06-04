@@ -147,6 +147,12 @@
           "availability": 80,
           "cost": -8,
           "effects": [{"attribute": "happiness", "value": 2},{"attribute": "health", "value": 2}]
+        },
+        {
+          "title": "Tabloid Magazine",
+          "availability": 80,
+          "cost": -2,
+          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "health", "value": -1}]
         }
       ]
     },
@@ -217,6 +223,69 @@
           "knowledge_required": 2,
           "course_required": "Basic math",
           "cost": -20
+        },
+        {
+          "title": "Advanced reading",
+          "symbol": 5,
+          "knowledge_value": 2,
+          "time": -2,
+          "knowledge_required": 2,
+          "course_required": "Basic reading",
+          "cost": -20
+        },
+        {
+          "title": "Advanced writing",
+          "symbol": 6,
+          "knowledge_value": 2,
+          "time": -2,
+          "knowledge_required": 2,
+          "course_required": "Basic writing",
+          "cost": -20
+        },
+        {
+          "title": "Computer programming",
+          "symbol": 7,
+          "knowledge_value": 3,
+          "time": -2,
+          "knowledge_required": 2,
+          "course_required": "Advanced math",
+          "cost": -30
+        },
+        {
+          "title": "Mechanical engineering",
+          "symbol": 8,
+          "knowledge_value": 3,
+          "time": -2,
+          "knowledge_required": 2,
+          "course_required": "Advanced math",
+          "cost": -30
+        },
+        {
+          "title": "Poetry and the arts",
+          "symbol": 9,
+          "knowledge_value": 3,
+          "time": -2,
+          "knowledge_required": 2,
+          "course_required": "Advanced writing",
+          "cost": -30
+        },
+        {
+          "title": "Professional proofreading and editing",
+          "symbol": 10,
+          "knowledge_value": 3,
+          "time": -2,
+          "knowledge_required": 2,
+          "course_required": "Advanced reading",
+          "cost": -30
+        },
+        {
+          "title": "Computer programming II",
+          "symbol": 11,
+          "knowledge_value": 4,
+          "time": -3,
+          "knowledge_required": 2,
+          "course_required": "Computer programming",
+          "cost": -35
         }
       ],
       "items":
@@ -232,6 +301,18 @@
           "availability": 100,
           "cost": -2,
           "effects": [{"attribute": "happiness", "value": 1}]
+        },
+        {
+          "title": "Basketball Game Ticket",
+          "availability": 70,
+          "cost": -9,
+          "effects": [{"attribute": "happiness", "value": 3},{"attribute": "time", "value": -2}]
+        },
+        {
+          "title": "Football Game Ticket",
+          "availability": 80,
+          "cost": -12,
+          "effects": [{"attribute": "happiness", "value": 4},{"attribute": "time", "value": -3}]
         }
       ]
     },
@@ -244,22 +325,28 @@
       "jobs":
       [
         {
+          "title": "Degrading Mascot",
+          "availability": 100,
+          "pay": 1,
+          "rank": 1
+        },
+        {
           "title": "Bathroom Cleanup Artist",
           "availability": 100,
           "pay": 2,
-          "rank": 1
+          "rank": 2
         },
         {
           "title": "Food Creation Specialist",
           "availability": 80,
           "pay": 3,
-          "rank": 2
+          "rank": 3
         },
         {
           "title": "Manager",
           "availability": 50,
           "pay": 8,
-          "rank": 3
+          "rank": 4
         }
       ],
       "items":
@@ -272,6 +359,12 @@
         },
         {
           "title": "Fries",
+          "availability": 100,
+          "cost": -3,
+          "effects": [{"attribute": "health", "value": 1}]
+        },
+        {
+          "title": "Milkshake",
           "availability": 100,
           "cost": -3,
           "effects": [{"attribute": "health", "value": 1}]
@@ -312,6 +405,12 @@
           "availability": 100,
           "cost": -5,
           "effects": [{"attribute": "hapiness", "value": 1}]
+        },
+        {
+          "title": "Business Casual Clothes",
+          "availability": 100,
+          "cost": -9,
+          "effects": [{"attribute": "hapiness", "value": 2}]
         },
         {
           "title": "Business Suit",
@@ -355,6 +454,12 @@
           "availability": 100,
           "cost": -13,
           "effects": [{"attribute": "hapiness", "value": 2}]
+        },
+        {
+          "title": "Refrigerator",
+          "availability": 100,
+          "cost": -18,
+          "effects": [{"attribute": "hapiness", "value": 2}]
         }
       ]
     },
@@ -392,6 +497,12 @@
           "availability": 70,
           "cost": -7,
           "effects": [{"attribute": "health", "value": 1},{"attribute": "happiness", "value": 1}]
+        },
+        {
+          "title": "Beer",
+          "availability": 70,
+          "cost": -4,
+          "effects": [{"attribute": "health", "value": -1},{"attribute": "happiness", "value": 1}]
         }
       ]
     },
