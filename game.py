@@ -18,7 +18,7 @@ along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
 from uuid import uuid4
 from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, BuyMenu, ListMenu, QuitMenu
-from player import Player
+from player import Player, Health, Knowledge, Happiness, Money
 from map import Map
 import os
 
@@ -37,6 +37,12 @@ class Game:
     self.map = map if map else Map()
     #Turn Counter
     self.turn = 0
+    
+    #Endgame conditions
+    self.endgame_conditions = {"health": Health(10),
+                               "knowledge": Knowledge(5),
+                               "happiness": Happiness(5),
+                               "money": Money(20)}
     
     #Save the start location for easier reference
     self.start_location = self.map.get_start_location()
@@ -100,53 +106,57 @@ class Game:
     quit_to_main_menu = False
     while not quit_to_main_menu:
       for player in self.players:
-        turn_done = False
-        while not turn_done:
-          menu = TurnMenu()
-          if player.location.jobs:
-            menu.add_option('a','Apply for a job')
-          if player.job in player.location.jobs:
-            menu.add_option('w','Work')
-          if player.location.courses:
-            menu.add_option('c','Enroll in a course')
-          if player.location.has_items():
-            menu.add_option('b','Buy Items')
-          if len(player.items):
-            menu.add_option('u','Use Item')
+        if self._finished_game(player):
+          print "Congratulations %s, you won the game!" % player
+          quit_to_main_menu = True
+        else:
+          turn_done = False
+          while not turn_done:
+            menu = TurnMenu()
+            if player.location.jobs:
+              menu.add_option('a','Apply for a job')
+            if player.job in player.location.jobs:
+              menu.add_option('w','Work')
+            if player.location.courses:
+              menu.add_option('c','Enroll in a course')
+            if player.location.has_items():
+              menu.add_option('b','Buy Items')
+            if len(player.items):
+              menu.add_option('u','Use Item')
+              
+            selection = menu.display(self.turn,player,player.attributes['time'].get())
             
-          selection = menu.display(self.turn,player,player.attributes['time'].get())
-          
-          """Clear the screen, use cls if Windows or clear if Linux"""
-          if not self.debug:
-            os.system('cls' if os.name=='nt' else 'clear')
-          if selection == 'q':
-            quit_completely, quit_to_main_menu = QuitMenu(options={'m':'Return to the Main Menu','q':'Quit BITFL completely'}).display()
-            self.log_debug("Results from QuitMenu was"+str(quit_completely)+str(quit_to_main_menu))
-            if quit_completely:
-              return True
-            if quit_to_main_menu:
-              return False
-          if selection == 'e':
-            player.attributes['time'].set(value=10)
-            turn_done = True
-          if selection == 'm':
-            self.command("move",{'player':player,'location_symbol':move_menu.display(self.map)})
-          if selection == 'a':
-            self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
-          if selection == 'w':
-            self.command('job_work',{'player':player})
-          if selection == 'i':
-            print player.info_display()
-          if selection == 'c':
-            self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
-          if selection == 'b':
-            item = BuyMenu().display(player.location.items)
-            if item:
-              self.command('item_buy',{'player':player, 'item':item})
-          if selection == 'u':
-            item = ListMenu("Select Item to Use",player.items).display()
-            self.command('item_use',{'player':player, 'item':item})
-      self.new_turn()
+            """Clear the screen, use cls if Windows or clear if Linux"""
+            if not self.debug:
+              os.system('cls' if os.name=='nt' else 'clear')
+            if selection == 'q':
+              quit_completely, quit_to_main_menu = QuitMenu(options={'m':'Return to the Main Menu','q':'Quit BITFL completely'}).display()
+              self.log_debug("Results from QuitMenu was"+str(quit_completely)+str(quit_to_main_menu))
+              if quit_completely:
+                return True
+              if quit_to_main_menu:
+                return False
+            if selection == 'e':
+              player.attributes['time'].set(value=10)
+              turn_done = True
+            if selection == 'm':
+              self.command("move",{'player':player,'location_symbol':move_menu.display(self.map)})
+            if selection == 'a':
+              self.command('job_apply',{'player':player, 'job_rank':JobMenu().display(job_list=player.location.jobs)})
+            if selection == 'w':
+              self.command('job_work',{'player':player})
+            if selection == 'i':
+              print player.info_display()
+            if selection == 'c':
+              self.command('course_enroll',{'player':player, 'course_choice':CourseMenu().display(course_list=player.location.courses, player=player)})
+            if selection == 'b':
+              item = BuyMenu().display(player.location.items)
+              if item:
+                self.command('item_buy',{'player':player, 'item':item})
+            if selection == 'u':
+              item = ListMenu("Select Item to Use",player.items).display()
+              self.command('item_use',{'player':player, 'item':item})
+          self.new_turn()
   
   def new_turn(self):
     """Create a new turn and add it to the end of the turns list."""
@@ -317,3 +327,20 @@ class Game:
     #If we got here, then something didn't execute correctly
     return False
   
+  def _finished_game(self,player):
+    """Return true if this player has satisfied the endgame conditions."""
+    if self.endgame_conditions:
+      for attribute in self.endgame_conditions:
+        if attribute in player.attributes:
+          if player.attributes[attribute].get() < self.endgame_conditions[attribute].get():
+            self.log_debug("%s failed endgame attribute %s (%s is less than goal of %s), returning False" % (player,attribute,player.attributes[attribute].get(),self.endgame_conditions[attribute].get()))
+            return False
+        else:
+          self.log_debug("%s attribute does not exist in Player object %s, returning False" % (attribute,player))
+          return False
+    else:
+      self.log_debug("There are no endgame conditions, _finished_game() is returning False")
+      return False
+    
+    #If we got here, then everything is satisfied for the end game
+    return True
