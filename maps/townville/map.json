@@ -460,6 +460,12 @@
           "availability": 100,
           "cost": -18,
           "effects": [{"attribute": "hapiness", "value": 2}]
+        },
+        {
+          "title": "Freezer",
+          "availability": 100,
+          "cost": -13,
+          "effects": [{"attribute": "hapiness", "value": 1}]
         }
       ]
     },
@@ -540,6 +546,24 @@
           "availability": 70,
           "cost": -14,
           "effects": [{"attribute": "happiness", "value": 2}]
+        },
+        {
+          "title": "End Table",
+          "availability": 70,
+          "cost": -14,
+          "effects": [{"attribute": "happiness", "value": 2}]
+        },
+        {
+          "title": "Normal Lamp",
+          "availability": 70,
+          "cost": -7,
+          "effects": [{"attribute": "happiness", "value": 1}]
+        },
+        {
+          "title": "Fancy Lamp",
+          "availability": 50,
+          "cost": -17,
+          "effects": [{"attribute": "happiness", "value": 3}]
         }
       ]
     }
