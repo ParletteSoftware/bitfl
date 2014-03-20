@@ -271,7 +271,7 @@
         },
         {
           "title": "Professional proofreading and editing",
-          "symbol": 10,
+          "symbol": "a",
           "knowledge_value": 3,
           "time": -2,
           "knowledge_required": 2,
@@ -280,7 +280,7 @@
         },
         {
           "title": "Computer programming II",
-          "symbol": 11,
+          "symbol": "b",
           "knowledge_value": 4,
           "time": -3,
           "knowledge_required": 2,
