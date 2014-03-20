@@ -158,7 +158,7 @@ class GuiMainMenu(Gui):
   
 class GuiNewGameMenu(Gui):
   def display():
-    
+    pass
   
 
 
@@ -232,7 +232,7 @@ class OptionsBox(BaseBox):
       self.buttons.append(ButtonBox(self.surface, Rect(x_pos, y_pos, self.inner_rect.width, self.inner_rect.height*.1), 
                          border_width=2, border_color=Color('gray'), font=('verdana', 12), text=option['text'],
                          bgcolor=Color('white'), font_color=Color('black'), 
-                         mouse_click_return=option['mouse_click_return'])
+                         mouse_click_return=option['mouse_click_return']))
       y_pos += self.inner_rect.height*.1
     
     for button in self.buttons:
