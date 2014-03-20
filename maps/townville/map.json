@@ -193,7 +193,7 @@
       [
         {
           "title": "Basic math",
-          "symbol": 1,
+          "symbol": "1",
           "knowledge_value": 1,
           "time": -1,
           "knowledge_required": 0,
@@ -201,7 +201,7 @@
         },
         {
           "title": "Basic reading",
-          "symbol": 2,
+          "symbol": "2",
           "knowledge_value": 1,
           "time": -1,
           "knowledge_required": 0,
@@ -209,7 +209,7 @@
         },
         {
           "title": "Basic writing",
-          "symbol": 3,
+          "symbol": "3",
           "knowledge_value": 1,
           "time": -1,
           "knowledge_required": 0,
@@ -217,7 +217,7 @@
         },
         {
           "title": "Advanced math",
-          "symbol": 4,
+          "symbol": "4",
           "knowledge_value": 2,
           "time": -2,
           "knowledge_required": 2,
@@ -226,7 +226,7 @@
         },
         {
           "title": "Advanced reading",
-          "symbol": 5,
+          "symbol": "5",
           "knowledge_value": 2,
           "time": -2,
           "knowledge_required": 2,
@@ -235,7 +235,7 @@
         },
         {
           "title": "Advanced writing",
-          "symbol": 6,
+          "symbol": "6",
           "knowledge_value": 2,
           "time": -2,
           "knowledge_required": 2,
@@ -244,7 +244,7 @@
         },
         {
           "title": "Computer programming",
-          "symbol": 7,
+          "symbol": "7",
           "knowledge_value": 3,
           "time": -2,
           "knowledge_required": 2,
@@ -253,7 +253,7 @@
         },
         {
           "title": "Mechanical engineering",
-          "symbol": 8,
+          "symbol": "8",
           "knowledge_value": 3,
           "time": -2,
           "knowledge_required": 2,
@@ -262,7 +262,7 @@
         },
         {
           "title": "Poetry and the arts",
-          "symbol": 9,
+          "symbol": "9",
           "knowledge_value": 3,
           "time": -2,
           "knowledge_required": 2,

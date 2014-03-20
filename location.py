@@ -70,9 +70,9 @@ class Location:
         return job
     return None
   
-  def get_course_by_number(self,symbol):
+  def get_course_by_symbol(self,symbol):
     for course in self.courses:
-      if int(symbol) == course.symbol:
+      if symbol == course.symbol:
         return course
     return None
   
