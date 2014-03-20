@@ -290,7 +290,7 @@ class Game:
         self.log_debug("ID of item: %s" % item.id)
         if item in player.items:
           #use the item
-          self.log_debug("Consuming item (%s) with effects %s" % (str(item),str(item.effects)))
+          self.log_debug("Using item (%s) with effects %s" % (str(item),str(item.effects)))
           player.use_item(item)
           self.log_debug("Player attributes are now %s" % (str(player.attributes)))
         else:
