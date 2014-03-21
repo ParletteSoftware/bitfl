@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Billy in the Fat Lane.  If not, see http://www.gnu.org/licenses/."""
 
-from menu import MainMenu
+from menu import MainMenu, QuitMenu
 from game import Game
 from map import Map
 import os
@@ -31,10 +31,10 @@ parser.add_argument('--debug', action='store_true', help='Turn on debug logging'
 parser.add_argument('--version', action='version', version='Billy in the Fat Lane v'+version)
 args = parser.parse_args()
 
-done = False
+quit_completely = False
 main_menu = MainMenu()
 
-while not done:
+while not quit_completely:
   """Clear the screen, use cls if Windows or clear if Linux"""
   if not args.debug:
     os.system('cls' if os.name=='nt' else 'clear')
@@ -44,7 +44,7 @@ while not done:
   if not args.debug:
     os.system('cls' if os.name=='nt' else 'clear')
   if selection == 'q':
-    done = True
+    quit_completely, quit_to_main_menu = QuitMenu().display()
   if selection == 'n':
     print "Loading maps..."
     map_list = []
@@ -58,7 +58,9 @@ while not done:
       print "Starting new game..."
       if len(map_list) == 1:
         game = Game(map_list[0], debug=args.debug)
-      if game.start():
-        game.run()
+      game_started = False
+      game_started, quit_completely = game.start()
+      if game_started and not quit_completely:
+        quit_completely = game.run()
     else:
       print "...no maps found"

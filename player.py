@@ -94,6 +94,16 @@ class Attribute(object):
   def __repr__(self):
     return str(self.name)
   
+  def __cmp__(self,other):
+    a = self.get()
+    b = other.get()
+    if a < b:
+      return -1
+    elif a > b:
+      return 1
+    else:
+      return 0
+  
   def set(self,value = 0, delta = 0):
     """Change the value of this attribute.
     If value is provided, then the attriute value is set to this number.
