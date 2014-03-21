@@ -264,7 +264,7 @@ class Game:
           if parameters['course_choice'] != '' and parameters['course_choice'] != None:
             player = parameters['player']
             self.log_debug("Looking up course %s in %s" % (parameters['course_choice'],player.location.name))
-            course = player.location.get_course_by_number(parameters['course_choice'])
+            course = player.location.get_course_by_symbol(parameters['course_choice'])
             self.log_debug("Course %s being taken" % (course.name))
             if course:
               #Each class has a time attribute for how long that class takes
