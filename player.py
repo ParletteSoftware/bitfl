@@ -72,12 +72,17 @@ class Player:
       self.items.append(new_item)
   
   def use_item(self,item):
-    """Consume the item, applying its effects on this player instance."""
+    """
+    Use the item, applying its effects on this player instance.
+
+    If the item is consumable, then using the item removes it from the player's inventory.
+    """
     if item in self.items:
       for attribute in item.effects:
         if attribute in self.attributes:
           self.attributes[attribute].set(delta=item.effects[attribute])
-      self.items.remove(item)
+      if item.consumable:
+        self.items.remove(item)
 
 class Attribute(object):
   def __init__(self,name="Attribute",value=0):

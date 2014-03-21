@@ -85,19 +85,22 @@
           "title": "You are a placeholder for a real person (and how to fix it)",
           "availability": 100,
           "cost": -5,
-          "effects": [{"attribute": "happiness", "value": 2},{"attribute": "time", "value": -2}]
+          "effects": [{"attribute": "happiness", "value": 2},{"attribute": "time", "value": -2}],
+          "consumable": false
         },
         {
           "title": "War: What is it good for?",
           "availability": 80,
           "cost": -5,
-          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "time", "value": -1}]
+          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "time", "value": -1}],
+          "consumable": false
         },
         {
           "title": "The Lord of the Rings Trilogy",
           "availability": 80,
           "cost": -15,
-          "effects": [{"attribute": "happiness", "value": 8},{"attribute": "time", "value": -6}]
+          "effects": [{"attribute": "happiness", "value": 8},{"attribute": "time", "value": -6}],
+          "consumable": false
         }
       ]
     },
@@ -134,25 +137,29 @@
           "title": "Fruit and Vegetables",
           "availability": 80,
           "cost": -8,
-          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "health", "value": 3}]
+          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "health", "value": 3}],
+          "consumable": true
         },
         {
           "title": "Hot Pocket",
           "availability": 80,
           "cost": -2,
-          "effects": [{"attribute": "health", "value": 1}]
+          "effects": [{"attribute": "health", "value": 1}],
+          "consumable": true
         },
         {
           "title": "Steak Dinner",
           "availability": 80,
           "cost": -8,
-          "effects": [{"attribute": "happiness", "value": 2},{"attribute": "health", "value": 2}]
+          "effects": [{"attribute": "happiness", "value": 2},{"attribute": "health", "value": 2}],
+          "consumable": true
         },
         {
           "title": "Tabloid Magazine",
           "availability": 80,
           "cost": -2,
-          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "health", "value": -1}]
+          "effects": [{"attribute": "happiness", "value": 1},{"attribute": "health", "value": -1}],
+          "consumable": true
         }
       ]
     },
@@ -294,25 +301,29 @@
           "title": "Textbooks",
           "availability": 80,
           "cost": -15,
-          "effects": [{"attribute": "happiness", "value": -1},{"attribute": "knowledge", "value": 3},{"attribute": "time", "value": 2}]
+          "effects": [{"attribute": "happiness", "value": -1},{"attribute": "knowledge", "value": 3},{"attribute": "time", "value": 2}],
+          "consumable": false
         },
         {
           "title": "University Pride Bumper Sticker",
           "availability": 100,
           "cost": -2,
-          "effects": [{"attribute": "happiness", "value": 1}]
+          "effects": [{"attribute": "happiness", "value": 1}],
+          "consumable": false
         },
         {
           "title": "Basketball Game Ticket",
           "availability": 70,
           "cost": -9,
-          "effects": [{"attribute": "happiness", "value": 3},{"attribute": "time", "value": -2}]
+          "effects": [{"attribute": "happiness", "value": 3},{"attribute": "time", "value": -2}],
+          "consumable": true
         },
         {
           "title": "Football Game Ticket",
           "availability": 80,
           "cost": -12,
-          "effects": [{"attribute": "happiness", "value": 4},{"attribute": "time", "value": -3}]
+          "effects": [{"attribute": "happiness", "value": 4},{"attribute": "time", "value": -3}],
+          "consumable": true
         }
       ]
     },
@@ -355,19 +366,22 @@
           "title": "Hamburger Meal",
           "availability": 100,
           "cost": -5,
-          "effects": [{"attribute": "health", "value": 1}]
+          "effects": [{"attribute": "health", "value": 1}],
+          "consumable": true
         },
         {
           "title": "Fries",
           "availability": 100,
           "cost": -3,
-          "effects": [{"attribute": "health", "value": 1}]
+          "effects": [{"attribute": "health", "value": 1}],
+          "consumable": true
         },
         {
           "title": "Milkshake",
           "availability": 100,
           "cost": -3,
-          "effects": [{"attribute": "health", "value": 1}]
+          "effects": [{"attribute": "health", "value": 1}],
+          "consumable": true
         }
       ]
     },
@@ -404,19 +418,22 @@
           "title": "Casual Clothes",
           "availability": 100,
           "cost": -5,
-          "effects": [{"attribute": "hapiness", "value": 1}]
+          "effects": [{"attribute": "hapiness", "value": 1}],
+          "consumable": false
         },
         {
           "title": "Business Casual Clothes",
           "availability": 100,
           "cost": -9,
-          "effects": [{"attribute": "hapiness", "value": 2}]
+          "effects": [{"attribute": "hapiness", "value": 2}],
+          "consumable": false
         },
         {
           "title": "Business Suit",
           "availability": 100,
           "cost": -20,
-          "effects": [{"attribute": "happiness", "value": 4}]
+          "effects": [{"attribute": "happiness", "value": 4}],
+          "consumable": false
         }
       ]
     },
@@ -447,25 +464,29 @@
           "title": "Television",
           "availability": 100,
           "cost": -20,
-          "effects": [{"attribute": "hapiness", "value": 3}]
+          "effects": [{"attribute": "hapiness", "value": 3}],
+          "consumable": false
         },
         {
           "title": "Stereo",
           "availability": 100,
           "cost": -13,
-          "effects": [{"attribute": "hapiness", "value": 2}]
+          "effects": [{"attribute": "hapiness", "value": 2}],
+          "consumable": false
         },
         {
           "title": "Refrigerator",
           "availability": 100,
           "cost": -18,
-          "effects": [{"attribute": "hapiness", "value": 2}]
+          "effects": [{"attribute": "hapiness", "value": 2}],
+          "consumable": false
         },
         {
           "title": "Freezer",
           "availability": 100,
           "cost": -13,
-          "effects": [{"attribute": "hapiness", "value": 1}]
+          "effects": [{"attribute": "hapiness", "value": 1}],
+          "consumable": false
         }
       ]
     },
@@ -496,19 +517,22 @@
           "title": "Crab Feast",
           "availability": 70,
           "cost": -25,
-          "effects": [{"attribute": "health", "value": 1},{"attribute": "happiness", "value": 3}]
+          "effects": [{"attribute": "health", "value": 1},{"attribute": "happiness", "value": 3}],
+          "consumable": true
         },
         {
           "title": "Crab Bomb",
           "availability": 70,
           "cost": -7,
-          "effects": [{"attribute": "health", "value": 1},{"attribute": "happiness", "value": 1}]
+          "effects": [{"attribute": "health", "value": 1},{"attribute": "happiness", "value": 1}],
+          "consumable": true
         },
         {
           "title": "Beer",
           "availability": 70,
           "cost": -4,
-          "effects": [{"attribute": "health", "value": -1},{"attribute": "happiness", "value": 1}]
+          "effects": [{"attribute": "health", "value": -1},{"attribute": "happiness", "value": 1}],
+          "consumable": true
         }
       ]
     },
@@ -539,31 +563,36 @@
           "title": "Sectional Couch",
           "availability": 100,
           "cost": -30,
-          "effects": [{"attribute": "happiness", "value": 5}]
+          "effects": [{"attribute": "happiness", "value": 5}],
+          "consumable": false
         },
         {
           "title": "Huge Bean Bag Chair",
           "availability": 70,
           "cost": -14,
-          "effects": [{"attribute": "happiness", "value": 2}]
+          "effects": [{"attribute": "happiness", "value": 2}],
+          "consumable": false
         },
         {
           "title": "End Table",
           "availability": 70,
           "cost": -14,
-          "effects": [{"attribute": "happiness", "value": 2}]
+          "effects": [{"attribute": "happiness", "value": 2}],
+          "consumable": false
         },
         {
           "title": "Normal Lamp",
           "availability": 70,
           "cost": -7,
-          "effects": [{"attribute": "happiness", "value": 1}]
+          "effects": [{"attribute": "happiness", "value": 1}],
+          "consumable": false
         },
         {
           "title": "Fancy Lamp",
           "availability": 50,
           "cost": -17,
-          "effects": [{"attribute": "happiness", "value": 3}]
+          "effects": [{"attribute": "happiness", "value": 3}],
+          "consumable": false
         }
       ]
     }

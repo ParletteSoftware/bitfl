@@ -128,7 +128,9 @@ class Map:
                       symbol=items_json["symbol"] if "symbol" in items_json else "",
                       availability=items_json["availability"],
                       cost=items_json["cost"],
-                      effects=effects)
+                      effects=effects,
+                      consumable=items_json["consumable"] if "consumable" in items_json else True,
+                      )
             location.add_item(item)
             self.log_debug("Added item:\n%s" % item.debug_string())
         

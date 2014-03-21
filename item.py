@@ -23,7 +23,9 @@ class Item:
                symbol = "!",
                availability = 50,
                cost = 1,
-               effects = {}):
+               effects = {},
+               consumable = True,
+              ):
     self.name = name
     self.id = uuid4()
     #Symbol: the command for a user to reference this item
@@ -36,6 +38,9 @@ class Item:
     
     #Effects: What will this item do?
     self.effects = effects
+
+    #Usable: Can this item be consumed?
+    self.consumable = consumable
   
   def __repr__(self):
     return str(self.name)
@@ -47,11 +52,12 @@ class Item:
     return self.name > other.name if hasattr(other,"name") else False
   
   def debug_string(self):
-    s = "%s\n%s\nID: %s\nAvailability: %s\nCost: %s\nEffects:\n\t%s" % (self.name,
+    s = "%s\n%s\nID: %s\nAvailability: %s\nCost: %s\nConsumable: %s\nEffects:\n\t%s" % (self.name,
                                                                     "-"*len(self.name),
                                                                     str(self.id),
                                                                     self.availability,
                                                                     self.cost,
+                                                                    self.consumable,
                                                                     "\n\t".join("%s (%.2f)" % (str(d),self.effects[d]) for d in self.effects) if len(self.effects) else "None"
                                                                     )
     return s
