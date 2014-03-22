@@ -21,6 +21,7 @@ from menu import NewGameMenu,TurnMenu, MoveMenu, JobMenu, CourseMenu, BuyMenu, L
 from player import Player, Health, Knowledge, Happiness, Money
 from map import Map
 import os
+import sys, math, time, random
 
 class Game:
   def __init__(self, map = None, debug = False):
@@ -106,8 +107,9 @@ class Game:
     quit_to_main_menu = False
     while not quit_to_main_menu:
       for player in self.players:
-        if self._finished_game(player):
-          print "Congratulations %s, you won the game!" % player
+        #if self._finished_game(player):
+        if True:
+          self._player_won(player)
           quit_to_main_menu = True
         else:
           turn_done = False
@@ -344,3 +346,46 @@ class Game:
     
     #If we got here, then everything is satisfied for the end game
     return True
+
+  def _player_won(self,player):
+    """Show the victory screen for the player who won."""
+
+    def distance(x, y):
+      # ((y - y_center) * 2) -> correct ratio for a true circle
+      return math.ceil(math.sqrt(((x - 40) ** 2) + (((y - 12) * 2) ** 2)))
+
+    def star(radiuses,center_text="winner"):
+      for r in radiuses:
+           
+        # width
+        for y in range(24):
+          # height
+          for x in range(80):
+            d = distance(x, y)
+
+            #~ border
+            if (d == r):
+              sys.stdout.write('*')
+              #~ inside the star
+            elif (d < r):
+              if (r > 35):
+                sys.stdout.write(' ')
+              elif (r > 25) and ((d % 2) != 0):
+                if y == 12: 
+                  if x == (40 - len(center_text) / 2):
+                    sys.stdout.write('winner')
+                else:
+                  sys.stdout.write('-')
+              elif (r > 15) and ((d % 2) == 0):
+                sys.stdout.write(' ')
+              else :
+                sys.stdout.write(random.choice('****#@'))
+            #~ space outside the star
+            else:
+              sys.stdout.write(' ')
+          print
+        time.sleep(0.1)
+      print "Congratulations, %s won the game!" % player.name
+      raw_input("Press enter to return to the main menu")
+
+    star(range(0, 12, +3) + range(10, 0, -3) + range(0, 50, 3))
