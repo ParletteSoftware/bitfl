@@ -301,7 +301,7 @@
           "title": "Textbooks",
           "availability": 80,
           "cost": -15,
-          "effects": [{"attribute": "happiness", "value": -1},{"attribute": "knowledge", "value": 3},{"attribute": "time", "value": 2}],
+          "effects": [{"attribute": "happiness", "value": -1},{"attribute": "knowledge", "value": 3},{"attribute": "time", "value": -2}],
           "consumable": false
         },
         {
