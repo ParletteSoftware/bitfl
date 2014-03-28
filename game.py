@@ -107,8 +107,7 @@ class Game:
     quit_to_main_menu = False
     while not quit_to_main_menu:
       for player in self.players:
-        #if self._finished_game(player):
-        if True:
+        if self._finished_game(player):
           self._player_won(player)
           quit_to_main_menu = True
         else:
